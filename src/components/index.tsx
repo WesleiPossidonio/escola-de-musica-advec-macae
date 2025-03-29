@@ -1,0 +1,6 @@
+export * from './Header'
+export * from './Hero'
+export * from './About'
+export * from './ProfSection'
+export * from './Faq'
+export * from './Footer'
