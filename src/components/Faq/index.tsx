@@ -1,10 +1,24 @@
-import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "../../components/ui/accordion"
+import { useEffect } from 'react';
+import AOS from 'aos';
+import 'aos/dist/aos.css';
+
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger
+} from "../../components/ui/accordion"
 
 
 export const Faq = () => {
+
+  useEffect(() => {
+    AOS.init();
+  }, [])
+
   return (
     <section className="w-full h-auto md:min-w-[30rem] bg-white">
-      <div className="container mx-auto flex flex-col items-center justify-center gap-10 px-6 md:px-10 py-10">
+      <div className="container mx-auto flex flex-col items-center justify-center gap-10 px-6 md:px-10 py-10" data-aos="zoom-in">
         <div className="space-y-1 text-center">
           <h1 className="text-2xl text-black font-bold+">FAQ</h1>
           <p className="text-sm md:text-md">
