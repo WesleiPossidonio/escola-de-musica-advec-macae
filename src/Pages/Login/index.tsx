@@ -11,9 +11,9 @@ const confirmOrderLoginValidationSchema = zod.object({
   password: zod.string().min(4, 'Informe a Senha'),
 })
 
-export type OrderData = zod.infer<typeof confirmOrderLoginValidationSchema>
+export type OrderLoginData = zod.infer<typeof confirmOrderLoginValidationSchema>
 
-type ConfirmOrderFormLoginData = OrderData
+type ConfirmOrderFormLoginData = OrderLoginData
 
 export const Login = () => {
 
