@@ -22,7 +22,9 @@ export const Faq = () => {
         <div className="space-y-1 text-center">
           <h1 className="text-2xl text-black font-bold+">FAQ</h1>
           <p className="text-sm md:text-md">
-            Tem dúvidas? Aqui estão as respostas para as perguntas mais frequentes sobre nossas aulas e como você pode começar a sua jornada musical conosco!
+            Tem dúvidas? Aqui estão as respostas para as perguntas mais
+            frequentes sobre nossas aulas e como você pode começar a
+            sua jornada musical conosco!
           </p>
         </div>
 

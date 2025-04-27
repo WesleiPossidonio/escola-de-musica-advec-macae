@@ -10,23 +10,26 @@ import Canto from '@/assets/Canto.svg'
 import teclado from '@/assets/Teclado.svg'
 import Violão from '@/assets/Violao.svg'
 import Pandeiro from '@/assets/Pandeiro.svg'
+import { useNavigate } from 'react-router-dom';
 
 
 export const ProfSection = () => {
 
   const InstrumentalOptions = [
-    { name: "Guitarra", id: 1, image: Guitarra },
-    { name: "Baixo", id: 2, image: Baixo },
-    { name: "Bateria", id: 13, image: Bateria },
-    { name: "Teclado", id: 13, image: teclado },
-    { name: "Canto", id: 13, image: Canto },
-    { name: "Violão", id: 13, image: Violão },
-    { name: "Pandeiro", id: 13, image: Pandeiro },
+    { name: "Guitarra", id: 1, image: Guitarra, navigate: 'guitarra' },
+    { name: "Baixo", id: 2, image: Baixo, navigate: 'baixo' },
+    { name: "Bateria", id: 13, image: Bateria, navigate: 'bateria' },
+    { name: "Teclado", id: 13, image: teclado, navigate: 'teclado' },
+    { name: "Canto", id: 13, image: Canto, navigate: 'canto' },
+    { name: "Violão", id: 13, image: Violão, navigate: 'guitarra' },
+    { name: "Pandeiro", id: 13, image: Pandeiro, navigate: 'pandeiro' },
   ];
 
   useEffect(() => {
     AOS.init();
   }, [])
+
+  const navigate = useNavigate()
 
   return (
     <section id="pricing" className="w-full flex flex-col items-center justify-center space-y-8 h-auto min-h-[35rem] text-center py-16 p-6 md:px-8">
@@ -42,7 +45,7 @@ export const ProfSection = () => {
         {
           InstrumentalOptions.map(list => {
             return (
-              <div key={list.id} className="w-full h-56 p-6 flex flex-col items-center group justify-center gap-3 border
+              <div key={list.id} onClick={() => navigate(`/${list.navigate}`)} className="w-full h-56 p-6 flex flex-col items-center group justify-center gap-3 border
                 border-neutral-400 rounded-md shadow-mm bg-white hover:bg-neutral-300 ease-in duration-75" data-aos="zoom-in">
                 <img src={list.image} className="w-22" alt="" />
                 <p className="text-2xl font-semibold">

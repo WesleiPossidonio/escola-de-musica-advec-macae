@@ -1,13 +1,6 @@
-import Image from '@/assets/ImageTwo.jpg'
 import { Camera, Clock, Users } from 'lucide-react'
-import {
-  AddInstrumentsStudentsForm,
-  BannerPage,
-  Footer,
-  FormCreateStudents,
-  Header,
-  Timeline
-} from '@/components'
+import Image from '@/assets/ImageHeroThree.jpg'
+import { AddInstrumentsStudentsForm, BannerPage, Footer, FormCreateStudents, Header, Timeline } from '@/components'
 import { useState } from 'react';
 
 
@@ -39,15 +32,13 @@ const timelineData = [
   },
 ];
 
-export const Bateria = () => {
-
+export const Baixo = () => {
   const [registrationMade, setRegistrationMade] = useState('Não')
 
   return (
     <main className="w-full  h-auto min-h-svh">
       <Header />
-      <BannerPage urlImage={Image} instrumetal='Bateria' />
-
+      <BannerPage urlImage={Image} instrumetal='Baixo' />
       <section className='w-full bg-white text-black py-16 px-4'>
         <div className='container mx-auto'>
           <h2 className="text-2xl md:text-3xl font-bold text-center mb-12">Observações Finais</h2>
@@ -69,9 +60,9 @@ export const Bateria = () => {
       </section>
 
       <section className='w-[95%] h-auto container min-h-[30rem]
-       bg-neutral-950 my-9 mx-auto rounded-xl p-8'>
-
+       bg-neutral-950 my-9 mx-auto rounded-xl'>
         <h1 className='text-white text-3xl'>Faça a sua Inscrição!</h1>
+
 
         <div className='mt-10 mb-4' onChange={(data) => setRegistrationMade((data.target as HTMLInputElement).value)}>
           <p className='text-white'>Já fez inscrição a outro instrumento ?</p>
@@ -87,11 +78,25 @@ export const Bateria = () => {
           </label>
         </div>
 
+        <form className='mt-10 mb-4'>
+          <p className='text-white'>Já fez inscrição a outro instrumento ?</p>
+          <label className='flex items-center justidy-center gap-4' htmlFor="radio" >
+            <div className='flex items-center justify-center gap-2'>
+              <input type="radio" value='sim' name='inscricao-efetuada' />
+              <p className='text-white'>Sim</p>
+            </div>
+            <div className='flex items-center justify-center gap-2'>
+              <input type="radio" value='não' name='inscricao-efetuada' />
+              <p className='text-white'>Não</p>
+            </div>
+          </label>
+        </form>
         {
-          registrationMade !== 'Sim' ? <FormCreateStudents instrument='Bateria' />
-            : <AddInstrumentsStudentsForm instrument='Bateria' />
+          registrationMade !== 'Sim' ? <FormCreateStudents instrument='Baixo' />
+            : <AddInstrumentsStudentsForm instrument='Baixo' />
         }
 
+        <FormCreateStudents instrument='Baixo' />
       </section>
 
       <Footer />
