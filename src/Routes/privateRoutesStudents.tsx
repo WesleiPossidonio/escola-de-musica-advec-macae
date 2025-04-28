@@ -14,7 +14,7 @@ export const PrivateRoutesStudents = () => {
         if (response.status === 200 && role === 'students') {
           setIsAuthenticated(true)
         } else {
-          console.log('cheguei aquiiii', role)
+
           setIsAuthenticated(false)
         }
       } catch (error) {
