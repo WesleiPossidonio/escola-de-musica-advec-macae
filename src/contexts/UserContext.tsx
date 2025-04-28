@@ -70,7 +70,7 @@ export const UserContext = createContext({} as UserContextType)
 
 export const UserContextProvider = ({ children }: UserContextProviderProps) => {
   const navigate = useNavigate()
-  const { getProf } = useStudentsData()
+  const { getProf, getStudents } = useStudentsData()
   const [userDataLogin, setUserDataLogin] = useState<ResponseDataUser>(
     {} as ResponseDataUser
   )
@@ -92,8 +92,8 @@ export const UserContextProvider = ({ children }: UserContextProviderProps) => {
         await localStorage.setItem('cartorio:userData1.0', JSON.stringify(data))
         setUserDataLogin(data)
         void (typeSessions === 'prof' ? navigate('/dashboard') : navigate('/portal-aluno'))
+        getStudents()
         getProf()
-
       } catch (error) {
         console.log(error)
       }

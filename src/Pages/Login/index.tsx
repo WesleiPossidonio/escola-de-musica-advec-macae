@@ -5,10 +5,11 @@ import { Input } from '@/components/ui/input'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useUser } from '@/hooks/userUser'
+import { useNavigate } from 'react-router-dom'
 
 const confirmOrderLoginValidationSchema = zod.object({
   email: zod.string().email('Informe o seu email'),
-  password: zod.string().min(4, 'Informe a Senha'),
+  password: zod.string().min(6, 'Informe a Senha'),
 })
 
 export type OrderLoginData = zod.infer<typeof confirmOrderLoginValidationSchema>
@@ -27,6 +28,7 @@ export const Login = () => {
   })
 
   const { handleLoginUser } = useUser()
+  const navigate = useNavigate()
 
   const handleLogin = (data: ConfirmOrderFormLoginData) => {
     const { email, password } = data
@@ -48,13 +50,13 @@ export const Login = () => {
           <h1 className="text-2xl font-bold">ADVEC Music</h1>
         </div>
         <Input className='h-10 ' type='text' placeholder='Email' {...register('email')} />
-        <Input className='h-10' type='text' placeholder='Senha'{...register('password')} />
+        <Input className='h-10' type='password' placeholder='Senha'{...register('password')} />
         <div className='w-full flex items-center justify-between'>
           <p className='text-sm text-neutral-600'>
-            Esqueci a Senha? <span className='font-semibold'>Click Aqui</span>
+            Esqueci a Senha? <span className='font-semibold cursor-pointer hover:text-black transition ease-in-out duration-500'>Click Aqui</span>
           </p>
 
-          <p className='text-sm text-neutral-600'>
+          <p className='text-sm text-neutral-600 cursor-pointer hover:text-black hover:font-semibold transition ease-in-out duration-500' onClick={() => navigate('/cadastro-professor')}>
             Cadastrar Usuário?
           </p>
 

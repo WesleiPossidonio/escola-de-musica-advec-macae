@@ -50,10 +50,10 @@ export const Dashboard = () => {
                 hover:border-b-2 cursor-pointer hover:font-semibold" onClick={() => setHeaderLink('adicionar-horario')}>
                 Adicionar Horário
               </p>
-              <p className="text-neutral-500 hover:text-neutral-700 border-0 
+              {/* <p className="text-neutral-500 hover:text-neutral-700 border-0 
                 hover:border-b-2 cursor-pointer hover:font-semibold">
                 Selecionar Sala
-              </p>
+              </p> */}
             </div>
 
             <div className="flex items-center justify-center gap-8">

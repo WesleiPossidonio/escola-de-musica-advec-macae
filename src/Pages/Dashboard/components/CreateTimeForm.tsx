@@ -19,7 +19,7 @@ const confirmOrderTimeValidationSchema = zod.object({
   dia: zod.string().min(3, 'Informe o Dia da Aula'),
   horario: zod.string().min(4, 'Informe o Horário da aula'),
   turno: zod.string().min(4, 'Informe o Turno da aula'),
-  quantidade_alunos: zod.string().min(1, 'Escolha o limite de alunos por aula')
+  quantidade_alunos: zod.string()
 })
 
 export type OrderData = zod.infer<typeof confirmOrderTimeValidationSchema>
@@ -31,19 +31,18 @@ export const CreateTimeForm = () => {
     control,
     register,
     handleSubmit,
-    // formState: { errors },
+    formState: { errors },
     reset,
   } = useForm<ConfirmOrderFormTimeData>({
     resolver: zodResolver(confirmOrderTimeValidationSchema),
   })
-
   const { handleCreateTime, listDataProf } = useStudentsData()
   const { userDataLogin } = useUser()
 
   const profData = listDataProf.find(prof => prof.name === userDataLogin.name)
 
   const createTime = (data: ConfirmOrderFormTimeData) => {
-
+    console.log('fui chamado')
     if (profData?.id) {
       const dataTime = {
         ...data, id_prof: profData.id
@@ -65,9 +64,7 @@ export const CreateTimeForm = () => {
           }}
             value={field.value} >
             <SelectTrigger className="w-full border text-black">
-              <SelectValue className='text-white' placeholder="Selecione o Dia de Aula">
-                Segunda-Feira
-              </SelectValue>
+              <SelectValue className='text-white' placeholder="Selecione o Dia de Aula" />
             </SelectTrigger>
             <SelectContent className='w-full border-none'>
               <SelectGroup className='bg-black'>
@@ -91,14 +88,18 @@ export const CreateTimeForm = () => {
           </Select>
         )}
       />
+      <p className="text-sm text-red-700">{errors.dia?.message}</p>
       <Input className='h-10 bg-white' type='text'
         placeholder='Horário'{...register('horario')} />
+      <p className="text-sm text-red-700">{errors.horario?.message}</p>
       <Input className='h-10 bg-white' type='text'
         placeholder='Turno'{...register('turno')} />
+      <p className="text-sm text-red-700">{errors.turno?.message}</p>
       <Input className='h-10 bg-white' type='text'
         placeholder='Quantidade de Alunos por aula'
         {...register('quantidade_alunos')} />
-      <Button className='h-10 w-28 text-md self-start mt-2 bg-neutral-600'>
+      <p className="text-sm text-red-700">{errors.quantidade_alunos?.message}</p>
+      <Button className='h-10 w-28 text-md self-start mt-2 bg-neutral-600' type="submit">
         Enviar
       </Button>
     </form>

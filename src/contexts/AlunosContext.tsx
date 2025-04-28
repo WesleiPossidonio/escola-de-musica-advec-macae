@@ -73,6 +73,7 @@ interface schoolProviderProps {
   handleCreateTime: (data: CreateTimeProps) => Promise<void>
   handleCreatePayment: (data: CreatePaymentProps) => Promise<void>
   getProf: () => Promise<void>
+  getStudents: () => Promise<void>
   listDataProf: DataProfProps[]
   listDataSchedules: ListScheduleProps[]
   listDataStudents: GetStudentsProps[]
@@ -127,7 +128,6 @@ export const SchoolContextProvider = ({
   useEffect(() => {
     getProf()
     getSchedules()
-    getStudents()
   }, [getProf, getSchedules, getStudents])
 
   const handleCreateStudents = async (data: CreateStudentsProps) => {
@@ -249,6 +249,7 @@ export const SchoolContextProvider = ({
         handleCreateTime,
         getProf,
         handleCreatePayment,
+        getStudents,
         listDataProf,
         listDataSchedules,
         listDataStudents

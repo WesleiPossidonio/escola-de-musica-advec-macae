@@ -22,7 +22,7 @@ export const Router = () => {
   return (
     <Routes>
       <Route path='/' element={<Home />} />
-      <Route path='/login' element={<Login />} />
+      <Route path='/admin' element={<Login />} />
       <Route path='/bateria' element={<Bateria />} />
       <Route path='/guitarra' element={<Guitarra />} />
       <Route path='/teclado' element={<Teclado />} />
