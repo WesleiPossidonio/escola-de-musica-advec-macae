@@ -140,15 +140,15 @@ export const Dashboard = () => {
 
           {
             headerLink === 'meus-alunos' && (
-              <div className="space-y-3">
-                <tr className="w-full flex items-center  justify-between p-3 
+              <div className="w-full space-y-3">
+                <div className="w-full flex items-center  justify-between p-3 
                 bg-white rounded-md shadow-md">
-                  <th>Nome</th>
-                  <th>Email</th>
-                  <th>Idade</th>
-                  <th>Dia</th>
-                  <th>Horario</th>
-                </tr>
+                  <p>Nome</p>
+                  <p>Email</p>
+                  <p>Idade</p>
+                  <p>Dia</p>
+                  <p>Horario</p>
+                </div>
 
                 {
                   filteredStudents.length === 0 ? dataStudents.length > 0 && dataStudents.map(list => {
@@ -156,29 +156,29 @@ export const Dashboard = () => {
                       <Dialog>
                         <DialogTrigger asChild>
 
-                          <tr key={list.id} className="grid grid-cols-5 p-4 bg-white shadow-md rounded-lg mb-2 space-y-1 md:space-y-0">
-                            <td className="col-span-4 gap-2">
+                          <div key={list.id} className="grid grid-cols-5 p-4 bg-white shadow-md rounded-lg mb-2 space-y-1 md:space-y-0">
+                            <div className="col-span-4 gap-2">
                               <span className="font-semibold md:hidden mr-1">Nome:</span>
                               <span>{list.name}</span>
-                            </td>
-                            <td className="col-span-4 text-sm text-black">
+                            </div>
+                            <div className="col-span-4 text-sm text-black">
                               <span className="font-semibold md:hidden mr-1">Email:</span>
                               {list.email}
-                            </td>
-                            <td className="col-span-2 text-sm text-black ">
+                            </div>
+                            <div className="col-span-2 text-sm text-black ">
                               <span className="font-semibold md:hidden mr-1">Idade:</span>
                               {list.data_de_nascimento}
-                            </td>
-                            <td className="col-span-3 text-sm text-yellow-500">
+                            </div>
+                            <div className="col-span-3 text-sm text-yellow-500">
                               <span className="font-semibold md:hidden ms-4 mr-1 text-black">Dia:</span>
                               {list.horarios_alunos.dia}
-                            </td>
-                            <td className="col-span-5 text-sm  flex items-center gap-1">
+                            </div>
+                            <div className="col-span-5 text-sm  flex items-center gap-1">
                               <span className="font-semibold md:hidden mr-1">Horário:</span>
                               <ClockIcon className="w-4 h-4" />
                               {list.horarios_alunos.horario}
-                            </td>
-                          </tr>
+                            </div>
+                          </div>
                         </DialogTrigger>
                         <DialogContent className="sm:max-w-md md:max-w-2xl lg:max-w-7xl">
                           <DialogStudents studentId={
@@ -192,29 +192,29 @@ export const Dashboard = () => {
                       <Dialog>
                         <DialogTrigger asChild>
 
-                          <tr key={list.id} className="grid grid-cols-5 p-4 bg-white shadow-md rounded-lg mb-2 space-y-1 md:space-y-0">
-                            <td className="col-span-4 gap-2">
+                          <div key={list.id} className="grid grid-cols-5 p-4 bg-white shadow-md rounded-lg mb-2 space-y-1 md:space-y-0">
+                            <div className="col-span-4 gap-2">
                               <span className="font-semibold md:hidden mr-1">Nome:</span>
                               <span>{list.name}</span>
-                            </td>
-                            <td className="col-span-4 text-sm text-black">
+                            </div>
+                            <div className="col-span-4 text-sm text-black">
                               <span className="font-semibold md:hidden mr-1">Email:</span>
                               {list.email}
-                            </td>
-                            <td className="col-span-2 text-sm text-black ">
+                            </div>
+                            <div className="col-span-2 text-sm text-black ">
                               <span className="font-semibold md:hidden mr-1">Idade:</span>
                               {list.data_de_nascimento}
-                            </td>
-                            <td className="col-span-3 text-sm text-yellow-500">
+                            </div>
+                            <div className="col-span-3 text-sm text-yellow-500">
                               <span className="font-semibold md:hidden ms-4 mr-1 text-black">Dia:</span>
                               {list.horarios_alunos.dia}
-                            </td>
-                            <td className="col-span-5 text-sm  flex items-center gap-1">
+                            </div>
+                            <div className="col-span-5 text-sm  flex items-center gap-1">
                               <span className="font-semibold md:hidden mr-1">Horário:</span>
                               <ClockIcon className="w-4 h-4" />
                               {list.horarios_alunos.horario}
-                            </td>
-                          </tr>
+                            </div>
+                          </div>
                         </DialogTrigger>
                         <DialogContent className="sm:max-w-md md:max-w-2xl lg:max-w-7xl">
                           <DialogStudents studentId={

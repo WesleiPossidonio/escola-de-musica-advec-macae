@@ -13,7 +13,6 @@ export const PrivateRoutes = () => {
 
         if (response.status === 200 && role === 'admin' || role === 'prof') {
           setIsAuthenticated(true)
-          console.log(response.data)
         } else {
           setIsAuthenticated(false)
         }

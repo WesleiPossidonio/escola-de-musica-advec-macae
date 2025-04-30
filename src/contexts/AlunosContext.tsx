@@ -124,7 +124,6 @@ export const SchoolContextProvider = ({
       const dataProps = await api.get('getAlunos')
       const { data } = dataProps
       setListDataStudents(data)
-      console.log(data)
     } catch (error) {
       console.log(error)
     }
