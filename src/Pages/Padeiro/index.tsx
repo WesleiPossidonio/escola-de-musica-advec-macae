@@ -60,7 +60,7 @@ export const Pandeiro = () => {
       </section>
 
       <section className='w-[95%] h-auto container min-h-[30rem]
-       bg-neutral-950 my-9 mx-auto rounded-xl'>
+       bg-neutral-950 my-9 mx-auto rounded-xl p-8'>
         <h1 className='text-white text-3xl'>Faça a sua Inscrição!</h1>
 
         <div className='mt-10 mb-4' onChange={(data) => setRegistrationMade((data.target as HTMLInputElement).value)}>

@@ -1,5 +1,4 @@
 import Image from '@/assets/ImageOne.jpg'
-import { Camera, Clock, Users } from 'lucide-react'
 import {
   AddInstrumentsStudentsForm,
   BannerPage,
@@ -9,35 +8,7 @@ import {
   Timeline
 } from '@/components'
 import { useState } from 'react';
-
-
-const timelineData = [
-  {
-    title: "Valores das Aulas",
-    description: "Criamos este site para divulgar o projeto e servir como um banco de dados, disponibilizando os resultados dos anos de trabalho para a sociedade e a comunidade acadêmica.",
-    icon: <Camera size={20} />,
-    align: "left",
-  },
-  {
-    title: "Duração das Aulas",
-    description: "Durante as férias, membros do projeto se reuniram para discutir o progresso da estação meteorológica e realizar testes com sensores para Arduino. No entanto, devido à pandemia de Covid-19, as atividades presenciais foram interrompidas.",
-    icon: <Clock size={20} />,
-    align: "right",
-  },
-  {
-    title: "Materiais para Estudo",
-    description: "Em 2019, participamos novamente da SIAC, desta vez com a presença dos alunos da escola, e recebemos uma menção honrosa.",
-    icon: <Users size={20} />,
-    align: "left",
-  },
-
-  {
-    title: "Objetivo do Curso",
-    description: "Em 2019, participamos novamente da SIAC, desta vez com a presença dos alunos da escola, e recebemos uma menção honrosa.",
-    icon: <Users size={20} />,
-    align: "right",
-  },
-];
+import { timelineData } from '@/utils/Timeline';
 
 export const Teclado = () => {
 
@@ -69,7 +40,7 @@ export const Teclado = () => {
       </section>
 
       <section className='w-[95%] h-auto container min-h-[30rem]
-       bg-neutral-950 my-9 mx-auto rounded-xl'>
+       bg-neutral-950 my-9 mx-auto rounded-xl p-8'>
         <h1 className='text-white text-3xl'>Faça a sua Inscrição!</h1>
 
         <div className='mt-10 mb-4' onChange={(data) => setRegistrationMade((data.target as HTMLInputElement).value)}>
