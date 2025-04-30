@@ -128,6 +128,7 @@ export const SchoolContextProvider = ({
   useEffect(() => {
     getProf()
     getSchedules()
+    getStudents()
   }, [getProf, getSchedules, getStudents])
 
   const handleCreateStudents = async (data: CreateStudentsProps) => {

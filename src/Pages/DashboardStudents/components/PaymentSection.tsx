@@ -8,6 +8,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useStudentsData } from "@/hooks/useStudents";
 import { useUser } from "@/hooks/userUser";
 
+import ImageQrCode from '@/assets/QrcodePayment.png'
 
 const MAX_FILE_SIZE = 1200 * 1024 * 1024;
 const ACCEPTED_VIDEO_TYPES = ['video/mp4', 'video/avi']; // Tipos aceitos
@@ -20,7 +21,6 @@ const formValidationSchema = zod.object({
     .refine((files) => ACCEPTED_VIDEO_TYPES.includes(files[0]?.type), "O arqui tem que ser .pdf ou .jpeg ou .png"), // Verifica o tipo do arquivo
   mes_referencia: zod.string().min(4, 'Selecione o Mês'),
 })
-
 
 type OrderPaymentFormData = zod.infer<typeof formValidationSchema>
 
@@ -64,8 +64,10 @@ export const PaymentSection = () => {
   };
 
   return (
-    <div className="w-full flex flex-col items-center justify-center gap-8 p-8">
-      <p className="text-black text-3xl">Pagamento</p>
+    <div className="w-full flex flex-col items-center justify-center gap-8 md:p-8">
+      <p className="text-black text-2xl md:text-3xl">Pagamento</p>
+
+      <img className="w-60 md:w-70 rounded-3xl object-cover" src={ImageQrCode} alt="" />
       <Button className="  bg-black h-12 w-58" onClick={copyText}>
         {textToCopy ? 'Copiado!' : 'Copiar Código Pix'}
       </Button>

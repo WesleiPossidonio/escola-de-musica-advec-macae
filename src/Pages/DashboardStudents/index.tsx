@@ -1,42 +1,88 @@
 
-import { Book, DollarSign, User } from "lucide-react"
+import { Book, DollarSign, Menu, User } from "lucide-react"
 import { CarouselCursos, Header, PaymentSection } from "./components"
-import { useState } from "react"
+import { createElement, useState } from "react"
 
 export const DashboardStudents = () => {
   const [addPage, setAddPage] = useState('Cursos')
+  const [open, setOpen] = useState(true);
 
+  const menus = [
+    { name: "Meus Dados", section: "Meus-dados", icon: User },
+    { name: "Cursos", section: "Cursos", icon: Book },
+    { name: "Financeiro", section: "Financeiro", icon: DollarSign },
+  ]
   return (
-    <main className='w-full grid grid-cols-4'>
-      <aside className=' h-svh bg-white col-span-1 pt-18'>
-        <div className="px-5 ">
-          <h1 className="text-2xl font-bold text-start">Emam Music</h1>
+    <main className='w-full flex'>
+
+      <aside
+        className={`bg-white min-h-screen ${open ? "w-72" : "w-20"
+          } duration-500 px-4 hidden md:block`}
+      >
+        <div className=" py-3 flex justify-end">
+          <Menu
+            size={26}
+            className="cursor-pointer"
+            onClick={() => setOpen(!open)}
+          />
         </div>
 
-        <div className=" flex flex-col gap-2 mt-12 ">
-          <p className="w-full h-15 flex items-center gap-2 text-xl px-4 py-6
-           hover:bg-neutral-100 cursor-pointer font-semibold" onClick={() => setAddPage('Meus-dados')}>
-            <User className="size-10" />
-            Meus Dados
-          </p>
-          <p className="w-full h-15 flex items-center gap-2 text-xl px-4 py-6
-           hover:bg-neutral-100 cursor-pointer font-semibold" onClick={() => setAddPage('Cursos')}>
-            <Book className="size-10" />
-            Cursos
-          </p>
-          <p className="w-full h-15 flex items-center gap-2 text-xl px-4 py-6
-           hover:bg-neutral-100 cursor-pointer font-semibold" onClick={() => setAddPage('Financeiro')}>
-            <DollarSign className="size-10" />
-            Financeiro
-          </p>
+
+        <div className="mt-20 flex flex-col gap-4 relative">
+
+          {
+            menus.map((menu, index) => {
+              return (
+                <div key={index} className="w-full h-15 group flex items-center gap-2 text-xl px-4 py-6
+                  hover:bg-neutral-100 cursor-pointer font-semibold" onClick={() => setAddPage(menu.section)}>
+                  <div>{createElement(menu?.icon, { size: "20" })}</div>
+                  <h2 style={{
+                    transitionDelay: `${index + 3}00ms`,
+                  }}
+                    className={`whitespace-pre duration-500 ${!open && "opacity-0 translate-x-28 overflow-hidden"
+                      }`}>
+                    {menu.name}
+                  </h2>
+                  <h2
+                    className={`${open && "hidden"
+                      } absolute left-48 bg-white font-semibold whitespace-pre text-gray-900 rounded-md drop-shadow-lg px-0 py-0 w-0 overflow-hidden group-hover:px-2 group-hover:py-1 group-hover:left-14 group-hover:duration-300 group-hover:w-fit  `}
+                  >
+                    {menu?.name}
+                  </h2>
+                </div>
+              )
+            })
+          }
+
         </div>
       </aside>
 
-      <section className="col-span-3 py-8 pr-8 pb-8 space-y-5">
+      {/* //mobile menu */}
+
+      <aside
+        className="bg-white min-h-screen w-16 duration-500 px-4 block md:hidden"
+      >
+
+        <div className="mt-20 flex flex-col gap-4 relative">
+
+          {
+            menus.map((menu, index) => {
+              return (
+                <div key={index} className="w-full h-15 group flex items-center gap-2 text-xl px-4 py-6
+                  hover:bg-neutral-100 cursor-pointer font-semibold" onClick={() => setAddPage(menu.section)}>
+                  <div>{createElement(menu?.icon, { size: "20" })}</div>
+                </div>
+              )
+            })
+          }
+
+        </div>
+      </aside>
+
+      <section className="w-full py-8 pr-8 pb-8 space-y-10 md:space-y-5">
         <Header />
 
-        <div className="w-full h-[94%] flex flex-col justify-center items-center bg-neutral-100 rounded-r-2xl p-8 space-y-8">
-
+        <div className="w-[95%] h-[94%] flex flex-col justify-center items-center bg-neutral-100 rounded-r-2xl p-8 space-y-8">
           {
             addPage === 'Cursos' && (
               <div className=" w-full">

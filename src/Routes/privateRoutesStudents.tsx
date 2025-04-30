@@ -11,6 +11,8 @@ export const PrivateRoutesStudents = () => {
         const response = await api.get('/check-auth', { withCredentials: true, })
         const { role } = response.data
 
+        console.log(role)
+
         if (response.status === 200 && role === 'students') {
           setIsAuthenticated(true)
         } else {

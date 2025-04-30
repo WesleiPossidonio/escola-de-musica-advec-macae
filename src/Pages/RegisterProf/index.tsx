@@ -42,7 +42,7 @@ export const RegisterProf = () => {
       <form className=' w-[90%] md:w-1/2 h-auto min-h-90 flex flex-col items-center 
         justify-center space-y-4 p-8 border border-neutral-400 shadow-xl rounded-lg' onSubmit={handleSubmit(handleRegisterProf)}>
         <div className='mb-8 text-center'>
-          <h1 className="text-2xl font-bold">ADVEC Music</h1>
+          <h1 className="text-2xl font-bold">Emam Music</h1>
         </div>
         <Input className='h-10 bg-neutral-100 p-4' type='text' placeholder='Nome' {...register('name')} />
         <Input className='h-10 bg-neutral-100 p-4' type='text' placeholder='Senha'{...register('password')} />

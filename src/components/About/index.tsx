@@ -24,14 +24,16 @@ export const About = () => {
           <div className='col-span-2 md:col-span-1 mt-4 max-w-2xl' data-aos="fade-left">
             <h1 className='text-lg font-semibold mb-1'>Frequência e Duração</h1>
             <p className='text-sm'>
-              Cada aluno terá <span className='font-semibold'> uma hora de aula por semana, </span> garantindo um acompanhamento contínuo e eficaz no desenvolvimento musical.
+              Cada aluno terá <span className='font-semibold'> uma hora de aula por semana, </span>
+              garantindo um acompanhamento contínuo e eficaz no desenvolvimento musical.
             </p>
           </div>
 
-          <div className='col-span-2 mt-4 max-w-2xl' data-aos="zoom-in">
+          <div className='col-span-2 mt-4 max-w-2xl' data-aos="zoom-in">+++
             <h1 className='text-lg font-semibold mb-1'>Valor Acessível</h1>
             <p className='text-sm'>
-              O investimento para qualquer curso é de <span className='font-semibold'> R$ 200,00 mensais,</span> com um ensino de qualidade e professores capacitados para te ajudar a evoluir.
+              O investimento para qualquer curso é de <span className='font-semibold'> 250,00 para não membros e 200,00 para membros da Advec.</span> {' '}
+              com um ensino de qualidade e professores capacitados para te ajudar a evoluir.
             </p>
           </div>
 
