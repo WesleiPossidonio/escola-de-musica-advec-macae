@@ -42,8 +42,8 @@ export const StudentsLogin = () => {
 
           <h1 className="text-3xl font-semibold text-center">Login</h1>
           <form action="" className="space-y-4 p-4 md:p-8" onSubmit={handleSubmit(handleLogin)}>
-            <Input className="md:p-5" placeholder="Email" {...register('email')} />
-            <Input className="md:p-5" placeholder="Senha" {...register('password')} />
+            <Input className="md:p-5" type="text" placeholder="Email" {...register('email')} />
+            <Input className="md:p-5" type="password" placeholder="Senha" {...register('password')} />
             <Button className="w-32 h-10 text-md">Entrar</Button>
 
             <div>

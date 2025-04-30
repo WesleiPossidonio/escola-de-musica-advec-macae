@@ -4,7 +4,7 @@ import { Header } from "./components"
 import { useUser } from "@/hooks/userUser"
 import { useStudentsData } from "@/hooks/useStudents"
 import { MoneyFormatting } from "@/utils/MoneyFormatting"
-import { createElement, useState } from "react"
+import { ChangeEvent, createElement, useState } from "react"
 import { CreateTimeForm } from "./components/CreateTimeForm"
 import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog"
 import { DialogStudents } from "@/components"
@@ -13,6 +13,7 @@ import { Input } from "@/components/ui/input"
 export const Dashboard = () => {
   const [headerLink, setHeaderLink] = useState('meus-alunos')
   const [open, setOpen] = useState(true);
+  const [searchStudents, setSearchStudents] = useState('')
 
   const menus = [
     { name: "Meus Dados", section: "Meus-dados", icon: User },
@@ -27,8 +28,16 @@ export const Dashboard = () => {
   const paymentProfs = dataStudents.length * 150
   const paymentsChurch = dataStudents.length * 50
 
+  const handleSearchStudents = (name: ChangeEvent<HTMLInputElement>) => {
+    const { value } = name.target
+
+    setSearchStudents(value)
+  }
+
+  const filteredStudents = dataStudents.filter(students => students.name.toLowerCase().includes(searchStudents.toLowerCase()))
+
   return (
-    <main className='w-full grid grid-cols-4'>
+    <main className='w-full flex'>
       <aside
         className={`bg-white min-h-screen ${open ? "w-72" : "w-20"
           } duration-500 px-4 hidden md:block`}
@@ -42,7 +51,7 @@ export const Dashboard = () => {
         </div>
 
 
-        <div className="mt-20 flex flex-col gap-4 relative">
+        <div className="mt-20 flex flex-col relative">
 
           {
             menus.map((menu, index) => {
@@ -50,6 +59,19 @@ export const Dashboard = () => {
                 <div key={index} className="w-full h-15 group flex items-center gap-2 text-xl px-4 py-6
                   hover:bg-neutral-100 cursor-pointer font-semibold" onClick={() => setHeaderLink(menu.section)}>
                   <div>{createElement(menu?.icon, { size: "20" })}</div>
+                  <h2 style={{
+                    transitionDelay: `${index + 3}00ms`,
+                  }}
+                    className={`whitespace-pre duration-500 ${!open && "opacity-0 translate-x-28 overflow-hidden"
+                      }`}>
+                    {menu.name}
+                  </h2>
+                  <h2
+                    className={`${open && "hidden"
+                      } absolute left-48 bg-white font-semibold whitespace-pre text-gray-900 rounded-md drop-shadow-lg px-0 py-0 w-0 overflow-hidden group-hover:px-2 group-hover:py-1 group-hover:left-14 group-hover:duration-300 group-hover:w-fit  `}
+                  >
+                    {menu?.name}
+                  </h2>
                 </div>
               )
             })
@@ -61,9 +83,8 @@ export const Dashboard = () => {
       {/* //mobile menu */}
 
       <aside
-        className="bg-white min-h-screen w-1 duration-500 px-4 block md:hidden"
+        className="bg-white min-h-screen w-16 duration-500 px-4 block md:hidden"
       >
-
 
         <div className="mt-20 flex flex-col gap-4 relative">
 
@@ -81,7 +102,7 @@ export const Dashboard = () => {
         </div>
       </aside>
 
-      <section className="col-span-4 md:col-span-3 py-8 md:pr-8 md:pb-8 space-y-5">
+      <section className="w-full md:col-span-3 py-8 md:pr-8 md:pb-8 space-y-5">
         <Header />
 
         <div className="w-full h-[94%] bg-neutral-100 rounded-r-2xl p-4 md:p-8 space-y-8">
@@ -115,7 +136,7 @@ export const Dashboard = () => {
             </div>
           </div>
 
-          <Input className='w-full md:w-2/4 bg-white' placeholder="Pesquise o aluno"></Input>
+          <Input className='w-full md:w-2/4 bg-white' placeholder="Pesquise o aluno" onBlur={handleSearchStudents} />
 
           {
             headerLink === 'meus-alunos' && (
@@ -130,7 +151,43 @@ export const Dashboard = () => {
                 </tr>
 
                 {
-                  dataStudents.length > 0 && dataStudents.map(list => {
+                  filteredStudents.length === 0 ? dataStudents.length > 0 && dataStudents.map(list => {
+                    return (
+                      <Dialog>
+                        <DialogTrigger asChild>
+
+                          <tr key={list.id} className="grid grid-cols-5 p-4 bg-white shadow-md rounded-lg mb-2 space-y-1 md:space-y-0">
+                            <td className="col-span-4 gap-2">
+                              <span className="font-semibold md:hidden mr-1">Nome:</span>
+                              <span>{list.name}</span>
+                            </td>
+                            <td className="col-span-4 text-sm text-black">
+                              <span className="font-semibold md:hidden mr-1">Email:</span>
+                              {list.email}
+                            </td>
+                            <td className="col-span-2 text-sm text-black ">
+                              <span className="font-semibold md:hidden mr-1">Idade:</span>
+                              {list.data_de_nascimento}
+                            </td>
+                            <td className="col-span-3 text-sm text-yellow-500">
+                              <span className="font-semibold md:hidden ms-4 mr-1 text-black">Dia:</span>
+                              {list.horarios_alunos.dia}
+                            </td>
+                            <td className="col-span-5 text-sm  flex items-center gap-1">
+                              <span className="font-semibold md:hidden mr-1">Horário:</span>
+                              <ClockIcon className="w-4 h-4" />
+                              {list.horarios_alunos.horario}
+                            </td>
+                          </tr>
+                        </DialogTrigger>
+                        <DialogContent className="sm:max-w-md md:max-w-2xl lg:max-w-7xl">
+                          <DialogStudents studentId={
+                            list.id
+                          } />
+                        </DialogContent>
+                      </Dialog>
+                    )
+                  }) : filteredStudents.map(list => {
                     return (
                       <Dialog>
                         <DialogTrigger asChild>

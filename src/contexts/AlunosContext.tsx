@@ -9,6 +9,7 @@ import {
 
 import api from '../services/api'
 import { toast } from 'react-toastify'
+import { useNavigate } from 'react-router-dom'
 
 interface CreateStudentsProps {
   id_prof: string
@@ -20,6 +21,7 @@ interface CreateStudentsProps {
   data_de_nascimento: string
   responsible_name: string
   password: string
+  instrumento_musical: string
 }
 
 interface CreateProfPros {
@@ -28,7 +30,8 @@ interface CreateProfPros {
   password: string
   telefone_contato: string
   update_number?: string
-  instrumento_musical: string
+  instrumento_musical1: string
+  instrumento_musical2?: string
 }
 
 interface CreatePaymentProps {
@@ -63,7 +66,8 @@ export interface GetStudentsProps extends CreateStudentsProps {
 interface DataProfProps {
   id: string,
   name: string,
-  instrumento_musical: string
+  instrumento_musical1: string
+  instrumento_musical2: string
   alunos: GetStudentsProps
 }
 
@@ -92,6 +96,8 @@ export const SchoolContextProvider = ({
   const [listDataProf, setListDataProf] = useState<DataProfProps[]>([])
   const [listDataStudents, setListDataStudents] = useState<GetStudentsProps[]>([])
   const [listDataSchedules, setListDataSchedules] = useState<ListScheduleProps[]>([])
+
+  const navigate = useNavigate()
 
   const getProf = useCallback(async () => {
     try {
@@ -141,7 +147,8 @@ export const SchoolContextProvider = ({
       experiencia_com_musica,
       data_de_nascimento,
       responsible_name,
-      password
+      password,
+      instrumento_musical
     } = data
 
     try {
@@ -155,7 +162,8 @@ export const SchoolContextProvider = ({
           experiencia_com_musica,
           data_de_nascimento,
           responsible_name,
-          password
+          password,
+          instrumento_musical
         }), {
         pending: 'Enviando Dados',
         success: 'Inscrição feita com Sucesso!',
@@ -170,7 +178,8 @@ export const SchoolContextProvider = ({
   const handleCreateProf = async (data: CreateProfPros) => {
     const {
       email,
-      instrumento_musical,
+      instrumento_musical1,
+      instrumento_musical2,
       name,
       password,
       telefone_contato,
@@ -181,7 +190,8 @@ export const SchoolContextProvider = ({
       await toast.promise(
         api.post('createProf', {
           email,
-          instrumento_musical,
+          instrumento_musical1,
+          instrumento_musical2,
           name,
           password,
           telefone_contato,
@@ -192,6 +202,8 @@ export const SchoolContextProvider = ({
         error: 'Error ao criar no servidor 🤯',
       }
       )
+
+      navigate('/admin')
     } catch (error) {
       console.log(error)
     }
