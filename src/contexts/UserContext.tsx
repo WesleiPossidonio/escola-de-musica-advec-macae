@@ -89,7 +89,7 @@ export const UserContextProvider = ({ children }: UserContextProviderProps) => {
           }
         )
         const { data } = response
-        await localStorage.setItem('cartorio:userData1.0', JSON.stringify(data))
+        await localStorage.setItem('emam:userData1.0', JSON.stringify(data))
         setUserDataLogin(data)
         void (typeSessions === 'prof' ? navigate('/dashboard') : navigate('/portal-aluno'))
         getStudents()
@@ -103,7 +103,7 @@ export const UserContextProvider = ({ children }: UserContextProviderProps) => {
 
   useEffect(() => {
     const LoadDataUser = async () => {
-      const dataUserLogin = await localStorage.getItem('cartorio:userData1.0')
+      const dataUserLogin = await localStorage.getItem('emam:userData1.0')
 
       if (dataUserLogin) {
         setUserDataLogin(JSON.parse(dataUserLogin))
@@ -136,12 +136,12 @@ export const UserContextProvider = ({ children }: UserContextProviderProps) => {
     try {
       const response = await toast.promise(api.post('confirmMail', { email }), {
         pending: 'Verificando seus dados',
-        success: 'Email Encontrado! verifique seu email.',
+        success: 'Email Encontrado! verifique seu email para atualizar a senha.',
         error: 'E-mail não encontrado digite novamente 🤯',
       })
       const { data } = response
       await localStorage.setItem(
-        'cartorio:UserConfirmEmail',
+        'Emam:DataConfirmEmail',
         JSON.stringify(data)
       )
 
@@ -173,7 +173,7 @@ export const UserContextProvider = ({ children }: UserContextProviderProps) => {
   }, [])
 
   const updatePassword = useCallback(async (data: UpdatePasswordProps) => {
-    const confirmEmailId = localStorage.getItem('cartorio:UserConfirmEmail')
+    const confirmEmailId = localStorage.getItem('Emam:DataConfirmEmail')
     const idUser = decodeToken(confirmEmailId)
 
     const { password, updateNumber } = data

@@ -46,6 +46,7 @@ export const Login = () => {
 
       <form className='w-full md:w-1/2 h-90 flex flex-col items-center 
         justify-center space-y-2.5 p-8 border border-neutral-400 shadow-xl rounded-lg' onSubmit={handleSubmit(handleLogin)}>
+        <p className='self-end text-sm font-semibold cursor-pointer' onClick={() => navigate('/')}>Voltar a Home</p>
         <div className='mb-8 text-center'>
           <h1 className="text-2xl font-bold">Emam Music</h1>
         </div>
@@ -53,12 +54,16 @@ export const Login = () => {
         <Input className='h-10' type='password' placeholder='Senha'{...register('password')} />
         <div className='w-full flex items-center justify-between'>
           <p className='text-sm text-neutral-600'>
-            Esqueci a Senha? <span className='font-semibold cursor-pointer hover:text-black transition ease-in-out duration-500'>Click Aqui</span>
+            Esqueci a Senha?
+            <span className='font-semibold cursor-pointer
+             hover:text-black transition ease-in-out duration-500' onClick={() => navigate('/confirmar-email')}>
+              Click Aqui
+            </span>
           </p>
 
-          <p className='text-sm text-neutral-600 cursor-pointer hover:text-black hover:font-semibold transition ease-in-out duration-500' onClick={() => navigate('/cadastro-professor')}>
+          {/* <p className='text-sm text-neutral-600 cursor-pointer hover:text-black hover:font-semibold transition ease-in-out duration-500' onClick={() => navigate('/cadastro-professor')}>
             Cadastrar Usuário?
-          </p>
+          </p> */}
 
         </div>
         <Button className='h-10 w-28 text-md self-start mt-2'>Entrar</Button>

@@ -8,20 +8,40 @@ export const Header = () => {
 
   const toggleMenu = () => setMenuOpen(!menuOpen)
 
+  // Função para navegação e manipulação de âncoras
+  const handleNavigate = (path: string) => {
+    if (path.startsWith('#')) {
+      if (window.location.pathname !== '/') {
+        navigate(`/${path}`) // ex: navegando para /#about
+      } else {
+        window.location.hash = path // ex: #about
+      }
+    } else {
+      navigate(path) // rotas como /login-estudante ou /admin
+    }
+
+    if (menuOpen) toggleMenu()
+  }
+
   return (
     <header className="bg-white shadow-md p-4">
       <div className="max-w-7xl mx-auto flex items-center justify-between">
-        <h1 className="text-2xl font-bold">EMAM Music</h1>
+        <h1 className="text-2xl font-bold cursor-pointer" onClick={() => handleNavigate('/')}>EMAM Music</h1>
 
-        {/* Menu para telas grandes */}
         <nav className="hidden md:flex space-x-6">
-          <a href="#about" className="hover:text-gray-600">Sobre Nós</a>
-          <a href="#pricing" className="hover:text-gray-600">Aulas</a>
+          <a className="hover:text-gray-600 cursor-pointer" onClick={() => handleNavigate('#about')}>Sobre Nós</a>
+          <a className="hover:text-gray-600 cursor-pointer" onClick={() => handleNavigate('#pricing')} >Aulas</a>
           <button
-            onClick={() => navigate('/login-estudante')}
+            onClick={() => handleNavigate('/login-estudante')}
             className="hover:text-gray-600"
           >
             Portal Aluno
+          </button>
+          <button
+            onClick={() => handleNavigate('/admin')}
+            className="hover:text-gray-600"
+          >
+            Admin
           </button>
         </nav>
 
@@ -43,11 +63,21 @@ export const Header = () => {
           <button
             onClick={() => {
               toggleMenu()
-              navigate('/login-estudante')
+              handleNavigate('/login-estudante')
             }}
             className="hover:text-gray-600"
           >
             Portal Aluno
+          </button>
+
+          <button
+            onClick={() => {
+              toggleMenu()
+              handleNavigate('/admin')
+            }}
+            className="hover:text-gray-600"
+          >
+            Admin
           </button>
         </nav>
       )}

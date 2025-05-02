@@ -29,7 +29,7 @@ export const About = () => {
             </p>
           </div>
 
-          <div className='col-span-2 mt-4 max-w-2xl' data-aos="zoom-in">+++
+          <div className='col-span-2 mt-4 max-w-2xl' data-aos="zoom-in">
             <h1 className='text-lg font-semibold mb-1'>Valor Acessível</h1>
             <p className='text-sm'>
               O investimento para qualquer curso é de <span className='font-semibold'> 250,00 para não membros e 200,00 para membros da Advec.</span> {' '}

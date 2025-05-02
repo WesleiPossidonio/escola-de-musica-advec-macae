@@ -4,6 +4,7 @@ import {
   Baixo,
   Bateria,
   Canto,
+  ConfirmEmail,
   Dashboard,
   DashboardStudents,
   Guitarra,
@@ -11,7 +12,8 @@ import {
   Login,
   Pandeiro,
   StudentsLogin,
-  Teclado
+  Teclado,
+  UpdatePassowrd
 } from '@/Pages'
 
 import { RegisterProf } from '@/Pages/RegisterProf'
@@ -31,6 +33,8 @@ export const Router = () => {
       <Route path='/pandeiro' element={<Pandeiro />} />
       <Route path='/cadastro-professor' element={<RegisterProf />} />
       <Route path='/login-estudante' element={<StudentsLogin />} />
+      <Route path='/confirmar-email' element={<ConfirmEmail />} />
+      <Route path='/Atualizar-senha' element={<UpdatePassowrd />} />
 
       <Route path="/dashboard" element={<PrivateRoutes />}>
         <Route index element={<Dashboard />} />
