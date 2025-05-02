@@ -3,7 +3,7 @@ import { Camera, Clock, Users } from "lucide-react";
 export const timelineData = [
   {
     title: "Valores das Aulas",
-    description: "50,00 para não membros e 200,00 para membros da Advec.",
+    description: "250,00 para não membros e 200,00 para membros da Advec.",
     icon: <Camera size={20} />,
     align: "left",
   },

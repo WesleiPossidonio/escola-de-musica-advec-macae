@@ -56,6 +56,8 @@ export const Login = () => {
     reset()
   }
 
+  console.log('linkCaphcha', import.meta.env.VITE_RECAPTCHA_KEY)
+
   return (
     <main className='w-full h-dvh flex items-center justify-center p-5'>
 
@@ -67,7 +69,7 @@ export const Login = () => {
         </div>
         <Input className='h-10 ' type='text' placeholder='Email' {...register('email')} />
         <Input className='h-10' type='password' placeholder='Senha'{...register('password')} />
-        <div id=" self-start transform scale-[0.7] transform-origin-[0 0] md:scale-[0]">
+        <div id=" self-start">
           <ReCAPTCHA
             sitekey={import.meta.env.VITE_RECAPTCHA_KEY}
             onChange={handleCapcha}
