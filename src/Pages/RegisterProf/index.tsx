@@ -6,6 +6,8 @@ import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useStudentsData } from '@/hooks/useStudents'
 import { useState } from 'react'
+import { toast } from 'react-toastify'
+import ReCAPTCHA from 'react-google-recaptcha'
 
 const confirmOrderLoginValidationSchema = zod.object({
   name: zod.string().min(3, 'Informe o nome do usuário'),
@@ -32,10 +34,22 @@ export const RegisterProf = () => {
   })
 
   const [music, setMusic] = useState('Não')
+  const [captcha, setCaptcha] = useState<string | null>('')
 
   const { handleCreateProf } = useStudentsData()
 
+  const handleCapcha = (token: string | null) => {
+    setCaptcha(token)
+  }
+
   const handleRegisterProf = (data: ConfirmOrderFormRegisterData) => {
+    if (!captcha) {
+      toast.error('Captcha pendente!', {
+        position: 'top-right',
+      })
+      return
+    }
+
     handleCreateProf(data)
     reset()
   }
@@ -49,7 +63,7 @@ export const RegisterProf = () => {
           <h1 className="text-2xl font-bold">Emam Music <br /> Cadastro Professor </h1>
         </div>
         <Input className='h-10 bg-neutral-100 p-4' type='text' placeholder='Nome' {...register('name')} />
-        <Input className='h-10 bg-neutral-100 p-4' type='text' placeholder='Senha'{...register('password')} />
+        <Input className='h-10 bg-neutral-100 p-4' type='password' placeholder='Senha'{...register('password')} />
         <Input className='h-10 bg-neutral-100 p-4' type='text' placeholder='email'{...register('email')} />
         <Input className='h-10 bg-neutral-100 p-4' type='text' placeholder='Telefone'{...register('telefone_contato')} />
         <Input className='h-10 bg-neutral-100 p-4' type='text' placeholder='Selecione o seu instrumento Musical'{...register('instrumento_musical1')} />
@@ -71,6 +85,13 @@ export const RegisterProf = () => {
           music === 'Sim' &&
           <Input className='h-10 bg-neutral-100 p-4' type='text' placeholder='Selecione o seu Segundo instrumento Musical'{...register('instrumento_musical2')} />
         }
+
+        <div id=" self-start transform scale-[0.7] transform-origin-[0 0] md:scale-[0]">
+          <ReCAPTCHA
+            sitekey={import.meta.env.VITE_RECAPTCHA_KEY}
+            onChange={handleCapcha}
+          />
+        </div>
         <Button className='h-10 w-28 text-md self-start mt-2'>Enviar</Button>
       </form>
     </main>

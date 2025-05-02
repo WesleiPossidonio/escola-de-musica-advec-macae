@@ -6,6 +6,9 @@ import ImageBanner from '@/assets/ImageHeroThree.jpg'
 import { useUser } from "@/hooks/userUser"
 import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
+import ReCAPTCHA from "react-google-recaptcha"
+import { useState } from "react"
+import { toast } from "react-toastify"
 
 const confirmOrderLoginValidationSchema = zod.object({
   email: zod.string().email('Informe o seu email'),
@@ -26,9 +29,20 @@ export const StudentsLogin = () => {
     resolver: zodResolver(confirmOrderLoginValidationSchema),
   })
 
+  const [captcha, setCaptcha] = useState<string | null>('')
   const { handleLoginUser } = useUser()
 
+  const handleCapcha = (token: string | null) => {
+    setCaptcha(token)
+  }
+
   const handleLogin = (data: ConfirmOrderFormLoginData) => {
+    if (!captcha) {
+      toast.error('Captcha pendente!', {
+        position: 'top-right',
+      })
+      return
+    }
     handleLoginUser(data)
     reset()
   }
@@ -44,6 +58,13 @@ export const StudentsLogin = () => {
           <form action="" className="space-y-4 p-4 md:p-8" onSubmit={handleSubmit(handleLogin)}>
             <Input className="md:p-5" type="text" placeholder="Email" {...register('email')} />
             <Input className="md:p-5" type="password" placeholder="Senha" {...register('password')} />
+            <div id=" self-start transform scale-[0.7] transform-origin-[0 0] md:scale-[0]">
+              <ReCAPTCHA
+                sitekey={import.meta.env.VITE_RECAPTCHA_KEY}
+                onChange={handleCapcha}
+              />
+            </div>
+
             <Button className="w-32 h-10 text-md">Entrar</Button>
 
             <div>

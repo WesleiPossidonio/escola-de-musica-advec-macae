@@ -1,11 +1,13 @@
 import * as zod from 'zod'
-
+import ReCAPTCHA from "react-google-recaptcha";
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useUser } from '@/hooks/userUser'
 import { useNavigate } from 'react-router-dom'
+import { toast } from 'react-toastify'
+import { useState } from 'react'
 
 const confirmOrderLoginValidationSchema = zod.object({
   email: zod.string().email('Informe o seu email'),
@@ -27,11 +29,24 @@ export const Login = () => {
     resolver: zodResolver(confirmOrderLoginValidationSchema),
   })
 
+  const [captcha, setCaptcha] = useState<string | null>('')
   const { handleLoginUser } = useUser()
   const navigate = useNavigate()
 
+  const handleCapcha = (token: string | null) => {
+    setCaptcha(token)
+  }
+
   const handleLogin = (data: ConfirmOrderFormLoginData) => {
     const { email, password } = data
+
+    if (!captcha) {
+      toast.error('Captcha pendente!', {
+        position: 'top-right',
+      })
+      return
+    }
+
     const dataLogin = {
       email,
       password,
@@ -52,6 +67,12 @@ export const Login = () => {
         </div>
         <Input className='h-10 ' type='text' placeholder='Email' {...register('email')} />
         <Input className='h-10' type='password' placeholder='Senha'{...register('password')} />
+        <div id=" self-start transform scale-[0.7] transform-origin-[0 0] md:scale-[0]">
+          <ReCAPTCHA
+            sitekey={import.meta.env.VITE_RECAPTCHA_KEY}
+            onChange={handleCapcha}
+          />
+        </div>
         <div className='w-full flex items-center justify-between'>
           <p className='text-sm text-neutral-600'>
             Esqueci a Senha?
