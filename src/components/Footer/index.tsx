@@ -8,7 +8,7 @@ export const Footer = () => (
     </p>
     <p className="text-sm">
       Desenvolvido por {' '}
-      <a className="font-semibold" href="#" target="_blank">Weslei Possidonio</a>
+      <a className="font-semibold" href="https://www.wesleifranca.com.br/" target="_blank">Weslei Possidonio</a>
     </p>
   </footer>
 );

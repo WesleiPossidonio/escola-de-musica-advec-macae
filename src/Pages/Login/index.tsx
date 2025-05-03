@@ -56,12 +56,10 @@ export const Login = () => {
     reset()
   }
 
-  console.log('linkCaphcha', import.meta.env.VITE_RECAPTCHA_KEY)
-
   return (
     <main className='w-full h-dvh flex items-center justify-center p-5'>
 
-      <form className='w-full md:w-1/2 h-90 flex flex-col items-center 
+      <form className='w-full md:w-1/2 h-[30rem] flex flex-col items-center 
         justify-center space-y-2.5 p-8 border border-neutral-400 shadow-xl rounded-lg' onSubmit={handleSubmit(handleLogin)}>
         <p className='self-end text-sm font-semibold cursor-pointer' onClick={() => navigate('/')}>Voltar a Home</p>
         <div className='mb-8 text-center'>
@@ -69,7 +67,7 @@ export const Login = () => {
         </div>
         <Input className='h-10 ' type='text' placeholder='Email' {...register('email')} />
         <Input className='h-10' type='password' placeholder='Senha'{...register('password')} />
-        <div id=" self-start">
+        <div id="self-start sm:w-[80%]" style={{ alignSelf: 'start ' }}>
           <ReCAPTCHA
             sitekey={import.meta.env.VITE_RECAPTCHA_KEY}
             onChange={handleCapcha}
@@ -91,7 +89,7 @@ export const Login = () => {
         </div>
         <Button className='h-10 w-28 text-md self-start mt-2'>Entrar</Button>
       </form>
-    </main>
+    </main >
   )
 }
 

@@ -58,7 +58,7 @@ export const StudentsLogin = () => {
           <form action="" className="space-y-4 p-4 md:p-8" onSubmit={handleSubmit(handleLogin)}>
             <Input className="md:p-5" type="text" placeholder="Email" {...register('email')} />
             <Input className="md:p-5" type="password" placeholder="Senha" {...register('password')} />
-            <div id="self-start">
+            <div id="self-start sm:w-[80%]">
               <ReCAPTCHA
                 sitekey={import.meta.env.VITE_RECAPTCHA_KEY}
                 onChange={handleCapcha}

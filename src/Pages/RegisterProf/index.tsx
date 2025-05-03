@@ -86,7 +86,7 @@ export const RegisterProf = () => {
           <Input className='h-10 bg-neutral-100 p-4' type='text' placeholder='Selecione o seu Segundo instrumento Musical'{...register('instrumento_musical2')} />
         }
 
-        <div id=" self-start transform">
+        <div id="self-start sm:w-[80%]">
           <ReCAPTCHA
             sitekey={import.meta.env.VITE_RECAPTCHA_KEY}
             onChange={handleCapcha}
