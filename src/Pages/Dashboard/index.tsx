@@ -15,9 +15,10 @@ export const Dashboard = () => {
   const [open, setOpen] = useState(true);
   const [searchStudents, setSearchStudents] = useState('')
 
+
   const menus = [
-    { name: "Meus Dados", section: "Meus-dados", icon: User },
-    { name: "Escola", section: "Cursos", icon: Book },
+    { name: "Escola", section: "meus-alunos", icon: User },
+    { name: "Horários", section: "adicionar-horario", icon: Book },
   ]
 
   const { userDataLogin } = useUser()
@@ -40,7 +41,7 @@ export const Dashboard = () => {
     <main className='w-full flex'>
       <aside
         className={`bg-white min-h-screen ${open ? "w-72" : "w-20"
-          } duration-500 px-4 hidden md:block`}
+          } duration-500 px-4 hidden md:block `}
       >
         <div className=" py-3 flex justify-end">
           <Menu
@@ -80,30 +81,8 @@ export const Dashboard = () => {
         </div>
       </aside>
 
-      {/* //mobile menu */}
-
-      <aside
-        className="bg-white min-h-screen w-16 duration-500 px-4 block md:hidden"
-      >
-
-        <div className="mt-20 flex flex-col gap-4 relative">
-
-          {
-            menus.map((menu, index) => {
-              return (
-                <div key={index} className="w-full h-15 group flex items-center gap-2 text-xl px-4 py-6
-                  hover:bg-neutral-100 cursor-pointer font-semibold" onClick={() => setHeaderLink(menu.section)}>
-                  <div>{createElement(menu?.icon, { size: "20" })}</div>
-                </div>
-              )
-            })
-          }
-
-        </div>
-      </aside>
-
       <section className="w-full md:col-span-3 py-8 md:pr-8 md:pb-8 space-y-5">
-        <Header />
+        <Header setHeaderLink={setHeaderLink} />
 
         <div className="w-full h-[94%] bg-neutral-100 rounded-r-2xl p-4 md:p-8 space-y-8">
           <h2 className="text-2xl font-semibold">Minhas Informações</h2>
