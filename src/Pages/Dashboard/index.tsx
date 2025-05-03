@@ -82,7 +82,7 @@ export const Dashboard = () => {
       </aside>
 
       <section className="w-full md:col-span-3 py-8 md:pr-8 md:pb-8 space-y-5">
-        <Header setHeaderLink={setHeaderLink} />
+        <Header />
 
         <div className="w-full h-[94%] bg-neutral-100 rounded-r-2xl p-4 md:p-8 space-y-8">
           <h2 className="text-2xl font-semibold">Minhas Informações</h2>
@@ -210,8 +210,6 @@ export const Dashboard = () => {
               <CreateTimeForm />
             )
           }
-
-
         </div>
       </section>
     </main>
