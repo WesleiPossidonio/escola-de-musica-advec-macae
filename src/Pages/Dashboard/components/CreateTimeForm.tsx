@@ -99,10 +99,10 @@ export const CreateTimeForm = () => {
         {...register('quantidade_alunos')} />
       <p className="text-sm text-red-700">{errors.quantidade_alunos?.message}</p>
 
-      <button className='h-10 w-28 text-md self-start mt-2 z-10 rounded-2xl bg-green-400'
+      <button className='h-10 w-28 text-md self-start mt-2 z-10 rounded-2xl bg-green-400'>
         Enviar
       </button>
-    </form >
+    </form>
   )
 }
 
