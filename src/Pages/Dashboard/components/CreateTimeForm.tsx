@@ -110,7 +110,7 @@ export const CreateTimeForm = () => {
 
       <Input
         className="h-10 bg-white"
-        type="number"
+        type="text"
         placeholder="Quantidade de Alunos por aula"
         {...register("quantidade_alunos", { valueAsNumber: true })}
       />
