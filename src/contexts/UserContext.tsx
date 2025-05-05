@@ -87,18 +87,22 @@ export const UserContextProvider = ({ children }: UserContextProviderProps) => {
           }
         )
         const { data } = response
-        const UserData = decodeToken(data)
+        const userData = decodeToken(data)
         await localStorage.setItem('emam:userData1.0', JSON.stringify(data))
 
 
         void (typeSessions === 'prof' ? navigate('/dashboard') : navigate('/portal-aluno'))
         getStudents()
         getProf()
-        if (UserData) {
-          setUserDataLogin(UserData)
+
+        console.log(userData)
+
+        if (userData) {
+          setUserDataLogin(userData)
         } else {
-          console.log('Error ao decodificar o Token')
+          console.error('Failed to decode user data.')
         }
+
       } catch (error) {
         console.log(error)
       }

@@ -42,7 +42,6 @@ export const CreateTimeForm = () => {
   const profData = listDataProf.find(prof => prof.name === userDataLogin.name)
 
   const createTime = (data: ConfirmOrderFormTimeData) => {
-    console.log('fui chamado')
     if (profData?.id) {
       const dataTime = {
         ...data, id_prof: profData.id
@@ -99,7 +98,8 @@ export const CreateTimeForm = () => {
         placeholder='Quantidade de Alunos por aula'
         {...register('quantidade_alunos')} />
       <p className="text-sm text-red-700">{errors.quantidade_alunos?.message}</p>
-      <Button className='h-10 w-28 text-md self-start mt-2 bg-neutral-600' type="submit">
+
+      <Button className='h-10 w-28 text-md self-start mt-2 bg-red-500 z-10' type="submit">
         Enviar
       </Button>
     </form>
