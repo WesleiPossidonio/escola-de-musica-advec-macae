@@ -88,13 +88,14 @@ export const UserContextProvider = ({ children }: UserContextProviderProps) => {
         )
         const { data } = response
         const UserData = decodeToken(data)
-        if (UserData) {
-          await localStorage.setItem('emam:userData1.0', JSON.stringify(data))
-          setUserDataLogin(UserData)
+        await localStorage.setItem('emam:userData1.0', JSON.stringify(data))
 
-          void (typeSessions === 'prof' ? navigate('/dashboard') : navigate('/portal-aluno'))
-          getStudents()
-          getProf()
+
+        void (typeSessions === 'prof' ? navigate('/dashboard') : navigate('/portal-aluno'))
+        getStudents()
+        getProf()
+        if (UserData) {
+          setUserDataLogin(UserData)
         } else {
           console.log('Error ao decodificar o Token')
         }
