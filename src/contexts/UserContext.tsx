@@ -21,9 +21,7 @@ interface UserLoginProps {
 export interface ResponseDataUser {
   admin: boolean
   id: string
-  registration: string
   name: string
-  token: string
   email: string
 }
 
@@ -89,11 +87,17 @@ export const UserContextProvider = ({ children }: UserContextProviderProps) => {
           }
         )
         const { data } = response
-        await localStorage.setItem('emam:userData1.0', JSON.stringify(data))
-        setUserDataLogin(data)
-        void (typeSessions === 'prof' ? navigate('/dashboard') : navigate('/portal-aluno'))
-        getStudents()
-        getProf()
+        const UserData = decodeToken(data)
+        if (UserData) {
+          await localStorage.setItem('emam:userData1.0', JSON.stringify(data))
+          setUserDataLogin(UserData)
+
+          void (typeSessions === 'prof' ? navigate('/dashboard') : navigate('/portal-aluno'))
+          getStudents()
+          getProf()
+        } else {
+          console.log('Error ao decodificar o Token')
+        }
       } catch (error) {
         console.log(error)
       }

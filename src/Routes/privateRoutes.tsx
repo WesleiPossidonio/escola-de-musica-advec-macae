@@ -1,39 +1,20 @@
-import { useEffect, useState } from 'react'
+
 import { Navigate, Outlet } from 'react-router-dom'
-import api from '../services/api'
+import { decodeToken } from '@/utils/DecodeToken'
 
 export const PrivateRoutes = () => {
-  const [isAuthenticated, setIsAuthenticated] = useState<boolean | null>(null)
 
-  useEffect(() => {
-    const checkAuthentication = async () => {
-      try {
-        const response = await api.get('/check-auth', { withCredentials: true, })
-        const { role } = response.data
+  const token = localStorage.getItem(
+    'emam:userData1.0',
+  )
 
-        if (response.status === 200 && role === 'admin' || role === 'prof') {
-          setIsAuthenticated(true)
-        } else {
-          setIsAuthenticated(false)
-        }
-      } catch (error) {
-        console.error('Erro ao verificar autenticação:', error)
-        setIsAuthenticated(false)
-      }
-    }
+  const dataUser = decodeToken(token)
 
-    checkAuthentication()
-  }, [])
-
-  if (isAuthenticated === null) {
-    return <div>Carregando...</div> // Mostra um loading enquanto verifica
-  }
-
-  return isAuthenticated ? (
+  return token !== null && (dataUser?.role === 'prof' || dataUser?.role === 'admin') ? (
     <>
       <Outlet />
     </>
   ) : (
-    <Navigate to="/login" replace /> // Corrigido para "/login"
+    <Navigate to="/admin" replace /> // Corrigido para "/login"
   )
 }

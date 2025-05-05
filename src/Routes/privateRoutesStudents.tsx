@@ -1,38 +1,15 @@
-import { useEffect, useState } from 'react'
+
+import { decodeToken } from '@/utils/DecodeToken'
 import { Navigate, Outlet } from 'react-router-dom'
-import api from '../services/api'
+
 
 export const PrivateRoutesStudents = () => {
-  const [isAuthenticated, setIsAuthenticated] = useState<boolean | null>(null)
+  const token = localStorage.getItem(
+    'emam:userData1.0',
+  )
 
-  useEffect(() => {
-    const checkAuthentication = async () => {
-      try {
-        const response = await api.get('/check-auth', { withCredentials: true, })
-        const { role } = response.data
-
-        console.log(role)
-
-        if (response.status === 200 && role === 'students') {
-          setIsAuthenticated(true)
-        } else {
-
-          setIsAuthenticated(false)
-        }
-      } catch (error) {
-        console.error('Erro ao verificar autenticação:', error)
-        setIsAuthenticated(false)
-      }
-    }
-
-    checkAuthentication()
-  }, [])
-
-  if (isAuthenticated === null) {
-    return <div>Carregando...</div> // Mostra um loading enquanto verifica
-  }
-
-  return isAuthenticated ? (
+  const dataUser = decodeToken(token)
+  return token !== null && dataUser?.role === 'students' ? (
     <>
       <Outlet />
     </>

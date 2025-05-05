@@ -4,10 +4,9 @@ import { jwtDecode } from 'jwt-decode';
 interface JwtPayload {
   id: string;
   name: string;
-  number_register: string;
-  email: string;
-  position: string;
-  admin: string;
+  admin: boolean;
+  role: string
+  email: string
 }
 
 export const decodeToken = (token: string | null): JwtPayload | null => {
