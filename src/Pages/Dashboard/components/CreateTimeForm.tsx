@@ -1,4 +1,4 @@
-import { Button } from "@/components/ui/button"
+
 import { Input } from "@/components/ui/input"
 import {
   Select,
@@ -99,9 +99,9 @@ export const CreateTimeForm = () => {
         {...register('quantidade_alunos')} />
       <p className="text-sm text-red-700">{errors.quantidade_alunos?.message}</p>
 
-      <Button className='h-10 w-28 text-md self-start mt-2 bg-red-500 z-10' type="submit">
+      <button className='h-10 w-28 text-md self-start mt-2 bg-red-500 z-10' type="submit">
         Enviar
-      </Button>
+      </button>
     </form>
   )
 }
