@@ -1,3 +1,4 @@
+import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import {
   Select,
@@ -18,7 +19,7 @@ const confirmOrderTimeValidationSchema = zod.object({
   dia: zod.string().min(3, 'Informe o Dia da Aula'),
   horario: zod.string().min(4, 'Informe o Horário da aula'),
   turno: zod.string().min(4, 'Informe o Turno da aula'),
-  quantidade_alunos: zod.coerce.number().positive('Informe um número válido')
+  quantidade_alunos: zod.string()
 })
 
 export type OrderData = zod.infer<typeof confirmOrderTimeValidationSchema>
@@ -34,14 +35,7 @@ export const CreateTimeForm = () => {
     reset,
   } = useForm<ConfirmOrderFormTimeData>({
     resolver: zodResolver(confirmOrderTimeValidationSchema),
-    defaultValues: {
-      dia: "",
-      horario: "",
-      turno: "",
-      quantidade_alunos: 0
-    }
   })
-
   const { handleCreateTime, listDataProf } = useStudentsData()
   const { userDataLogin } = useUser()
 
@@ -50,9 +44,7 @@ export const CreateTimeForm = () => {
   const createTime = (data: ConfirmOrderFormTimeData) => {
     if (profData?.id) {
       const dataTime = {
-        ...data,
-        id_prof: profData.id,
-        quantidade_alunos: String(data.quantidade_alunos)
+        ...data, id_prof: profData.id
       }
       handleCreateTime(dataTime)
       reset()
@@ -62,66 +54,55 @@ export const CreateTimeForm = () => {
   return (
     <form className="w-full space-y-3" onSubmit={handleSubmit(createTime)}>
       <p>Adicionar Horário</p>
-
       <Controller
         control={control}
         name="dia"
-        defaultValue=""
         render={({ field }) => (
-          <Select onValueChange={field.onChange} value={field.value}>
+          <Select onValueChange={(value) => {
+            field.onChange(value)
+          }}
+            value={field.value} >
             <SelectTrigger className="w-full border text-black">
-              <SelectValue placeholder="Selecione o Dia de Aula" />
+              <SelectValue className='text-white' placeholder="Selecione o Dia de Aula" />
             </SelectTrigger>
-            <SelectContent className="w-full border-none">
-              <SelectGroup className="bg-black">
-                {[
-                  "Segunda-Feira",
-                  "Terça-Feira",
-                  "Quarta-Feira",
-                  "Quinta-Feira",
-                  "Sexta-Feira"
-                ].map((dia) => (
-                  <SelectItem key={dia} className="text-white" value={dia}>
-                    {dia}
-                  </SelectItem>
-                ))}
+            <SelectContent className='w-full border-none'>
+              <SelectGroup className='bg-black'>
+                <SelectItem className='text-white' value='Segunda-Feira'>
+                  Segunda-Feira
+                </SelectItem>
+                <SelectItem className='text-white' value='Terça-Feira'>
+                  Terça-Feira
+                </SelectItem>
+                <SelectItem className='text-white' value='Quarta-Feira'>
+                  Quarta-Feira
+                </SelectItem>
+                <SelectItem className='text-white' value='Quinta-Feira'>
+                  Quinta-Feira
+                </SelectItem>
+                <SelectItem className='text-white' value='Sexta-Feira'>
+                  Sexta-Feira
+                </SelectItem>
               </SelectGroup>
             </SelectContent>
           </Select>
         )}
       />
       <p className="text-sm text-red-700">{errors.dia?.message}</p>
-
-      <Input
-        className="h-10 bg-white"
-        type="text"
-        placeholder="Horário"
-        {...register("horario")}
-      />
+      <Input className='h-10 bg-white' type='text'
+        placeholder='Horário'{...register('horario')} />
       <p className="text-sm text-red-700">{errors.horario?.message}</p>
-
-      <Input
-        className="h-10 bg-white"
-        type="text"
-        placeholder="Turno"
-        {...register("turno")}
-      />
+      <Input className='h-10 bg-white' type='text'
+        placeholder='Turno'{...register('turno')} />
       <p className="text-sm text-red-700">{errors.turno?.message}</p>
-
-      <Input
-        className="h-10 bg-white"
-        type="text"
-        placeholder="Quantidade de Alunos por aula"
-        {...register("quantidade_alunos", { valueAsNumber: true })}
-      />
+      <Input className='h-10 bg-white' type='text'
+        placeholder='Quantidade de Alunos por aula'
+        {...register('quantidade_alunos')} />
       <p className="text-sm text-red-700">{errors.quantidade_alunos?.message}</p>
 
-      <button
-        type="submit"
-        className="h-10 w-28 text-md self-start mt-2 z-10 rounded-2xl bg-green-400"
-      >
+      <Button className='h-10 w-28 text-md self-start mt-2 bg-neutral-900 z-10' type="submit">
         Enviar
-      </button>
+      </Button>
     </form>
   )
 }
+

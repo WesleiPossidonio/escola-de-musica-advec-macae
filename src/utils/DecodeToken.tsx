@@ -3,14 +3,11 @@ import { jwtDecode } from 'jwt-decode';
 
 interface JwtPayload {
   id: string;
-  name: string;
-  admin: boolean;
   role: string
-  email: string
 }
 
-export const decodeToken = (token: string | null): JwtPayload | null => {
-  if (!token) return null;
+export const decodeToken = (token: unknown): JwtPayload | null => {
+  if (typeof token !== 'string' || !token.trim()) return null;
 
   try {
     const decodedToken = jwtDecode<JwtPayload>(token);

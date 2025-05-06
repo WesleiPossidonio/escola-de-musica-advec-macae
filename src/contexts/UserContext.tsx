@@ -22,6 +22,7 @@ export interface ResponseDataUser {
   admin: boolean
   id: string
   name: string
+  token: string
   email: string
 }
 
@@ -75,7 +76,7 @@ export const UserContextProvider = ({ children }: UserContextProviderProps) => {
 
   const handleLoginUser = useCallback(
     async (data: UserLoginProps) => {
-      const { email, password, typeSessions } = data
+      const { email, password, typeSessions, } = data
 
       try {
         const response = await toast.promise(
@@ -86,23 +87,17 @@ export const UserContextProvider = ({ children }: UserContextProviderProps) => {
             error: 'Verifique o nome do usuário e senha 🤯',
           }
         )
-        const { data } = response
-        const userData = decodeToken(data)
-        await localStorage.setItem('emam:userData1.0', JSON.stringify(data))
+        const dataUser = response.data
+        console.log(dataUser)
+        const decodeUserId = decodeToken(dataUser)
+        await localStorage.setItem('emam:userData1.0', JSON.stringify(dataUser))
+
+        setUserDataLogin({ ...dataUser, id: decodeUserId?.id })
 
 
         void (typeSessions === 'prof' ? navigate('/dashboard') : navigate('/portal-aluno'))
         getStudents()
         getProf()
-
-        console.log(userData)
-
-        if (userData) {
-          setUserDataLogin(userData)
-        } else {
-          console.error('Failed to decode user data.')
-        }
-
       } catch (error) {
         console.log(error)
       }
