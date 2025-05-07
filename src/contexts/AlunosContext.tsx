@@ -54,6 +54,12 @@ interface ListScheduleProps extends CreateTimeProps {
   id: string
 }
 
+interface PaymentProp {
+  id: string
+  pix_comprovante: string
+  id_comprovante: string
+  mes_referencia: string
+}
 interface studentsHoursProps extends CreateTimeProps {
   id: string
 }
@@ -61,6 +67,7 @@ interface studentsHoursProps extends CreateTimeProps {
 export interface GetStudentsProps extends CreateStudentsProps {
   id: string
   horarios_alunos: studentsHoursProps
+  pagamentos: PaymentProp[]
 }
 
 interface DataProfProps {
@@ -114,6 +121,7 @@ export const SchoolContextProvider = ({
       const dataProps = await api.get('getHours')
       const { data } = dataProps
       setListDataSchedules(data)
+
     } catch (error) {
       console.log(error)
     }
@@ -134,6 +142,8 @@ export const SchoolContextProvider = ({
     getProf()
     getSchedules()
     getStudents()
+
+
   }, [getProf, getSchedules, getStudents])
 
   const handleCreateStudents = async (data: CreateStudentsProps) => {
@@ -230,7 +240,7 @@ export const SchoolContextProvider = ({
       }), {
         pending: 'Enviando Dados',
         success: 'Horário Criado com Sucesso!',
-        error: 'Error ao criar o horário 🤯',
+        error: 'Error ao criar o horário 🤯 Data Existente',
       })
     } catch (error) {
       console.log(error)

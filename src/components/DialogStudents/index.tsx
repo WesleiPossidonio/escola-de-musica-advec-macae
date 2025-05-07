@@ -17,7 +17,7 @@ export const DialogStudents = ({ studentId }: DialogProps) => {
       <div className="space-y-2">
 
         <h1 className="text-xl font-semibold mb-3">Informações do Aluno</h1>
-        <div className="flex items-center justify-center gap-6">
+        <div className="flex flex-col md:flex-row items-start md:items-center justify-center gap-6">
           <div className="flex items-center gap-2">
             <User className="size-9" />
             <h1 className="font-semibold flex items-center gap-1">
@@ -43,6 +43,17 @@ export const DialogStudents = ({ studentId }: DialogProps) => {
           <h1 className="font-semibold">Telefone do Aluno:</h1>
           <p>{student?.telefone}</p>
         </div>
+        {
+          student?.pagamentos ? student.pagamentos.map(list => {
+            return (
+              <div key={list.id}>
+                <p>{list.mes_referencia}</p>
+                <a href={list.id_comprovante} download={true}>Baixar Comprovante</a>
+              </div>
+            )
+          }) : <p>Pagamento Não Realizado</p>
+        }
+
       </div>
     </div>
   )

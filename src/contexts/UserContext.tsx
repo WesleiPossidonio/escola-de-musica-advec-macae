@@ -88,12 +88,10 @@ export const UserContextProvider = ({ children }: UserContextProviderProps) => {
           }
         )
         const dataUser = response.data
-        console.log(dataUser)
         const decodeUserId = decodeToken(dataUser)
         await localStorage.setItem('emam:userData1.0', JSON.stringify(dataUser))
 
         setUserDataLogin({ ...dataUser, id: decodeUserId?.id })
-
 
         void (typeSessions === 'prof' ? navigate('/dashboard') : navigate('/portal-aluno'))
         getStudents()
@@ -110,11 +108,16 @@ export const UserContextProvider = ({ children }: UserContextProviderProps) => {
       const dataUserLogin = await localStorage.getItem('emam:userData1.0')
 
       if (dataUserLogin) {
-        setUserDataLogin(JSON.parse(dataUserLogin))
+        const { token, name, email }: ResponseDataUser = JSON.parse(dataUserLogin)
+        const decodeUserId = decodeToken(token)
+        if (decodeUserId !== null) {
+          setUserDataLogin({ name, email, id: decodeUserId.id, admin: false, token: token })
+        }
       }
     }
 
     LoadDataUser()
+
   }, [])
 
   const handleCreateUser = useCallback(async (data: CreaterUser) => {
