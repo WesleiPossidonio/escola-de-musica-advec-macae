@@ -65,8 +65,8 @@ export const Baixo = () => {
           </label>
         </form>
         {
-          registrationMade !== 'Sim' ? <FormCreateStudents instrument='Baixo' />
-            : <AddInstrumentsStudentsForm instrument='Baixo' />
+          registrationMade !== 'Sim' ? <FormCreateStudents instrument='Contrabaixo Eletrico' />
+            : <AddInstrumentsStudentsForm instrument='Contrabaixo Eletrico' />
         }
       </section>
 

@@ -7,7 +7,6 @@ import { GetStudentsProps } from "@/contexts/AlunosContext"
 import { ClockIcon } from "lucide-react"
 import { ChangeEvent, useState } from "react"
 
-
 interface ListStudentsProps {
   dataStudents: GetStudentsProps[]
 }

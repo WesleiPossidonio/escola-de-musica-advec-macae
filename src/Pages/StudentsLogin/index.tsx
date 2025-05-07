@@ -9,6 +9,7 @@ import { zodResolver } from "@hookform/resolvers/zod"
 import ReCAPTCHA from "react-google-recaptcha"
 import { useState } from "react"
 import { toast } from "react-toastify"
+import { useNavigate } from "react-router-dom"
 
 const confirmOrderLoginValidationSchema = zod.object({
   email: zod.string().email('Informe o seu email'),
@@ -31,6 +32,8 @@ export const StudentsLogin = () => {
 
   const [captcha, setCaptcha] = useState<string | null>('')
   const { handleLoginUser } = useUser()
+
+  const navigate = useNavigate()
 
   const handleCapcha = (token: string | null) => {
     setCaptcha(token)
@@ -68,7 +71,12 @@ export const StudentsLogin = () => {
             <Button className="w-32 h-10 text-md">Entrar</Button>
 
             <div>
-              <p className="text-sm">Esqueci senha ? <span className="font-semibold">Clique Aqui!</span></p>
+              <p className="text-sm">
+                Esqueci senha ? {' '}
+                <span className="font-semibold cursor-pointer hover:text-black transition ease-in duration-200" onClick={() => navigate('confirmar-email')}>
+                  Clique Aqui!
+                </span>
+              </p>
               <p></p>
             </div>
           </form>
