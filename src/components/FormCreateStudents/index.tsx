@@ -39,7 +39,8 @@ export const FormCreateStudents = ({ instrument }: FormCreateStudentsProps) => {
   const [daySchool, setDaySchool] = useState('')
   const { handleCreateStudents, listDataProf, listDataSchedules, } = useStudentsData()
 
-  const instrumentList = listDataProf.filter(item => item.instrumento_musical1 === instrument || item.instrumento_musical2 === instrument)
+  const instrumentList = listDataProf.filter(item => item.instrumento_musical1 === instrument
+    && item.horarios.instrumento === instrument || item.instrumento_musical2 === instrument && item.horarios.instrumento === instrument)
   const scheduleList = listDataSchedules.filter(item => item.id_prof === idProf && item.disponibilidade_horario === 'Disponível')
   const dayScheduleList = scheduleList.filter(item => item.dia === daySchool)
 

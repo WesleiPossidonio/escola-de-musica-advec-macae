@@ -48,6 +48,7 @@ interface CreateTimeProps {
   quantidade_alunos: string
   disponibilidade_horario?: string
   disponibilidade_alunos?: string
+  instrumento: string
 }
 
 interface ListScheduleProps extends CreateTimeProps {
@@ -76,6 +77,7 @@ interface DataProfProps {
   instrumento_musical1: string
   instrumento_musical2: string
   alunos: GetStudentsProps
+  horarios: ListScheduleProps
 }
 
 interface schoolProviderProps {
@@ -225,7 +227,8 @@ export const SchoolContextProvider = ({
       turno,
       disponibilidade_horario,
       id_prof,
-      quantidade_alunos
+      quantidade_alunos,
+      instrumento
     } = data
 
     try {
@@ -236,7 +239,8 @@ export const SchoolContextProvider = ({
         disponibilidade_alunos: 0,
         disponibilidade_horario,
         id_prof,
-        quantidade_alunos
+        quantidade_alunos,
+        instrumento
       }), {
         pending: 'Enviando Dados',
         success: 'Horário Criado com Sucesso!',

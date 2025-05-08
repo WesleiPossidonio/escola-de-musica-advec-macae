@@ -26,7 +26,8 @@ const confirmOrderTimeValidationSchema = zod.object({
   dia: zod.string().min(3, 'Informe o Dia da Aula'),
   horario: zod.string().min(4, 'Informe o Horário da aula'),
   turno: zod.string().min(4, 'Informe o Turno da aula'),
-  quantidade_alunos: zod.string()
+  quantidade_alunos: zod.string(),
+  instrumento: zod.string().min(4, 'Informe o Instrumento Musical'),
 })
 
 export type OrderData = zod.infer<typeof confirmOrderTimeValidationSchema>
@@ -125,6 +126,31 @@ export const CreateTimeForm = () => {
                 placeholder='Quantidade de Alunos por aula'
                 {...register('quantidade_alunos')} />
               <p className="text-sm text-red-700">{errors.quantidade_alunos?.message}</p>
+              <Controller
+                control={control}
+                name="instrumento"
+                render={({ field }) => (
+                  <Select onValueChange={(value) => {
+                    field.onChange(value)
+                  }}
+                    value={field.value} >
+                    <SelectTrigger className="w-full border text-black">
+                      <SelectValue className='text-white' placeholder="Selecione o Instrumento" />
+                    </SelectTrigger>
+                    <SelectContent className='w-full border-none'>
+                      <SelectGroup className='bg-black'>
+                        <SelectItem className='text-white' value={profData?.instrumento_musical1 || ''}>
+                          {profData?.instrumento_musical1 || 'Error Api'}
+                        </SelectItem>
+                        <SelectItem className='text-white' value={profData?.instrumento_musical2 || ''}>
+                          {profData?.instrumento_musical2 || 'Error Api'}
+                        </SelectItem>
+                      </SelectGroup>
+                    </SelectContent>
+                  </Select>
+                )}
+              />
+              <p className="text-sm text-red-700">{errors.instrumento?.message}</p>
 
               <Button className='h-10 w-28 text-md self-start mt-2 bg-neutral-900 z-10' type="submit">
                 Enviar
@@ -137,8 +163,10 @@ export const CreateTimeForm = () => {
                 <p className="col-span-1 md:col-span-1">Dia</p>
                 <p className="col-span-2 md:col-span-1">Horário</p>
                 <p className="col-span-2 md:col-span-1">Estado da Vaga</p>
+                <p className="col-span-2 md:col-span-1">Instrumento</p>
                 <p className="col-span-2 md:col-span-1">Vagas</p>
                 <p className="col-span-2 md:col-span-1">Vagas Disponíveis</p>
+
               </div>
 
               {
@@ -162,6 +190,11 @@ export const CreateTimeForm = () => {
                           <div className="col-span-2 md:col-span-1 text-sm  flex items-center gap-1">
                             <span className="font-semibold md:hidden mr-1">Estado:</span>
                             {list.disponibilidade_horario}
+                          </div>
+
+                          <div className="col-span-2 md:col-span-1 text-sm  flex items-center gap-1">
+                            <span className="font-semibold md:hidden mr-1">Instrumento:</span>
+                            {list.instrumento}
                           </div>
 
                           <div className="col-span-3 md:col-span-1 text-sm ms-1 flex items-center gap-1">
