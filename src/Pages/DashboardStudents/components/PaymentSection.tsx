@@ -11,14 +11,14 @@ import { useUser } from "@/hooks/userUser";
 import ImageQrCode from '@/assets/QrcodePayment.png'
 
 const MAX_FILE_SIZE = 1200 * 1024 * 1024;
-const ACCEPTED_VIDEO_TYPES = ['video/mp4', 'video/avi']; // Tipos aceitos
+const ACCEPTED_FILE_TYPES = ['application/pdf', 'image/jpeg', 'image/png'];
 
 const formValidationSchema = zod.object({
   url_pdf: zod
     .any()
-    .refine((files) => files && files.length > 0, "O Comprovante é Obrigatório") // Verifica se algum arquivo foi selecionado
-    .refine((files) => files[0]?.size <= MAX_FILE_SIZE, "O tamanho maximo do arquivo é 1200MB.") // Verifica o tamanho do primeiro arquivo
-    .refine((files) => ACCEPTED_VIDEO_TYPES.includes(files[0]?.type), "O arqui tem que ser .pdf ou .jpeg ou .png"), // Verifica o tipo do arquivo
+    .refine((files) => files && files.length > 0, "O Comprovante é Obrigatório")
+    .refine((files) => files[0]?.size <= MAX_FILE_SIZE, "O tamanho máximo do arquivo é 1200MB.")
+    .refine((files) => ACCEPTED_FILE_TYPES.includes(files[0]?.type), "O arquivo deve ser .pdf, .jpeg ou .png."),
   mes_referencia: zod.string().min(4, 'Selecione o Mês'),
 })
 
@@ -29,13 +29,14 @@ export const PaymentSection = () => {
     control,
     register,
     handleSubmit,
-    // formState: { errors },
     reset,
+    formState: { errors },
   } = useForm<OrderPaymentFormData>({
     resolver: zodResolver(formValidationSchema),
   })
 
   const [textToCopy, setTextToCopy] = useState(false)
+  const [fileName, setFileName] = useState<string | null>(null);
   const textPix = 'fdb89185-cc11-45bb-9df2-884d05a5de23'
 
   const { handleCreatePayment } = useStudentsData()
@@ -61,6 +62,7 @@ export const PaymentSection = () => {
 
     handleCreatePayment(paiment);
     reset();
+    setFileName(null);
   };
 
   return (
@@ -68,7 +70,7 @@ export const PaymentSection = () => {
       <p className="text-black text-2xl md:text-3xl">Pagamento</p>
 
       <img className="w-60 md:w-70 rounded-3xl object-cover" src={ImageQrCode} alt="" />
-      <Button className="  bg-black h-12 w-58" onClick={copyText}>
+      <Button className="bg-black h-12 w-58" onClick={copyText}>
         {textToCopy ? 'Copiado!' : 'Copiar Código Pix'}
       </Button>
 
@@ -77,25 +79,53 @@ export const PaymentSection = () => {
           control={control}
           name="mes_referencia"
           render={({ field }) => (
-            <Select onValueChange={(value) => {
-              field.onChange(value)
-            }}
-              value={field.value} >
-              <SelectTrigger className="w-full border bg-white">
-                <SelectValue className='text-white' placeholder="Adicione o Mês de Referencia" />
-              </SelectTrigger>
-              <SelectContent className='w-full border-none' {...register('mes_referencia')}>
-                <SelectGroup className='bg-white'>
-                  <SelectItem className='text-white' value='Maio'>Maio</SelectItem>
-                </SelectGroup>
-              </SelectContent>
-            </Select>
+            <>
+              <Select onValueChange={(value) => field.onChange(value)} value={field.value}>
+                <SelectTrigger className="w-full border bg-white">
+                  <SelectValue className='text-white' placeholder="Adicione o Mês de Referência" />
+                </SelectTrigger>
+                <SelectContent className='w-full border-none' {...register('mes_referencia')}>
+                  <SelectGroup className='bg-white'>
+                    <SelectItem className='text-white' value='Maio'>Maio</SelectItem>
+                  </SelectGroup>
+                </SelectContent>
+              </Select>
+              {errors.mes_referencia && (
+                <p className="text-red-500 text-sm mt-1">{errors.mes_referencia.message}</p>
+              )}
+            </>
           )}
         />
-        <Input className="text-white bg-white" type="file" placeholder="Adicione o Comprovante do pix" {...register('url_pdf')} />
+
+        <>
+          <Input
+            className="text-white bg-white"
+            type="file"
+            placeholder="Adicione o Comprovante do Pix"
+            {...register('url_pdf')}
+            onChange={(e) => {
+              const file = e.target.files?.[0];
+              if (file) {
+                setFileName(file.name);
+              } else {
+                setFileName(null);
+              }
+            }}
+          />
+          {fileName && (
+            <p className="text-sm text-black mt-1">
+              Arquivo selecionado: <strong>{fileName}</strong>
+            </p>
+          )}
+          {errors.url_pdf && (
+            <p className="text-red-500 text-sm mt-1">{errors.url_pdf?.message?.toString()}</p>
+          )}
+        </>
+
+        <Button className='h-10 w-28 text-md self-start mt-2 bg-neutral-900 z-10' type="submit">
+          Enviar
+        </Button>
       </form>
     </div>
   )
 }
-
-
