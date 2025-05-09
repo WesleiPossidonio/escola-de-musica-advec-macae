@@ -8,7 +8,7 @@ import {
   Timeline
 } from '@/components'
 import { useState } from 'react';
-import { timelineData } from '@/utils/Timeline';
+import { timelineDataTeclado } from '@/utils/Timeline';
 
 export const Teclado = () => {
 
@@ -25,7 +25,7 @@ export const Teclado = () => {
           <div className="relative">
             <div className="hidden md:block absolute top-0 left-1/2 h-full w-1 bg-black -translate-x-1/2" />
             <div className="flex flex-col md:flex-row md:flex-wrap">
-              {timelineData.map((item, index) => (
+              {timelineDataTeclado.map((item, index) => (
                 <Timeline
                   key={index}
                   title={item.title}

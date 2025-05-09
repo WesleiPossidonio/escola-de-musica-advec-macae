@@ -3,7 +3,7 @@
 import { AddInstrumentsStudentsForm, BannerPage, Footer, FormCreateStudents, Header, Timeline } from '@/components'
 import Image from '@/assets/ImageHeroThree.jpg'
 import { useState } from 'react';
-import { timelineData } from '@/utils/Timeline';
+import { timelineDataCanto } from '@/utils/Timeline';
 
 export const Canto = () => {
   const [registrationMade, setRegistrationMade] = useState('Não')
@@ -18,7 +18,7 @@ export const Canto = () => {
           <div className="relative">
             <div className="hidden md:block absolute top-0 left-1/2 h-full w-1 bg-black -translate-x-1/2" />
             <div className="flex flex-col md:flex-row md:flex-wrap">
-              {timelineData.map((item, index) => (
+              {timelineDataCanto.map((item, index) => (
                 <Timeline
                   key={index}
                   title={item.title}
