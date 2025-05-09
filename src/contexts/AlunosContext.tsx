@@ -252,20 +252,31 @@ export const SchoolContextProvider = ({
   }
 
   const handleCreatePayment = async (data: CreatePaymentProps) => {
-    const { mes_referencia, id_alunos } = data
+    const { mes_referencia, id_alunos, url_pdf } = data;
+
+    const formData = new FormData();
+    formData.append("mes_referencia", mes_referencia);
+    formData.append("id_alunos", String(id_alunos));
+    formData.append("url_pdf", url_pdf[0]); // url_pdf já é File aqui
 
     try {
-      await toast.promise(api.post('payment', {
-        mes_referencia, id_alunos
-      }), {
-        pending: 'Enviando Dados',
-        success: 'Pagamento Cadastrado com Sucesso!',
-        error: 'Error ao criar o horário 🤯',
-      })
+      await toast.promise(
+        api.post('payment', formData, {
+          headers: {
+            'Content-Type': 'multipart/form-data',
+          },
+        }),
+        {
+          pending: 'Enviando Dados',
+          success: 'Pagamento Cadastrado com Sucesso!',
+          error: 'Erro ao criar o pagamento 🤯',
+        }
+      );
     } catch (error) {
-      console.log(error)
+      console.log(error);
     }
-  }
+  };
+
 
   return (
     <SchoolContext.Provider
