@@ -1,6 +1,7 @@
 
 import { useStudentsData } from "@/hooks/useStudents"
 import { Calendar, User } from "lucide-react"
+import { useEffect } from "react"
 
 interface DialogProps {
   studentId: string
@@ -11,6 +12,11 @@ export const DialogStudents = ({ studentId }: DialogProps) => {
   const { listDataStudents } = useStudentsData()
 
   const student = listDataStudents.find(students => students.id === studentId)
+
+  useEffect(() => {
+    console.log(listDataStudents)
+  }, [])
+
 
   return (
     <div className="w-full flex flex-col items-start justify-center gap-2">
@@ -44,14 +50,16 @@ export const DialogStudents = ({ studentId }: DialogProps) => {
           <p>{student?.telefone}</p>
         </div>
         {
-          student?.pagamentos ? student.pagamentos.map(list => {
-            return (
+          student?.pagamentos && student?.pagamentos.length > 0 ? (
+            student.pagamentos.map(list => (
               <div key={list.id}>
                 <p>{list.mes_referencia}</p>
-                <a href={list.id_comprovante} download={true}>Baixar Comprovante</a>
+                <a href={list.pix_comprovante} download>Baixar Comprovante</a>
               </div>
-            )
-          }) : <p>Pagamento Não Realizado</p>
+            ))
+          ) : (
+            <p>Pagamento Não Realizado</p>
+          )
         }
 
       </div>

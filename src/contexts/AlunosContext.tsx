@@ -35,7 +35,7 @@ interface CreateProfPros {
 }
 
 interface CreatePaymentProps {
-  url_pdf: FileList
+  url_pdf: File
   id_alunos: string,
   mes_referencia: string,
 }
@@ -257,7 +257,20 @@ export const SchoolContextProvider = ({
     const formData = new FormData();
     formData.append("mes_referencia", mes_referencia);
     formData.append("id_alunos", String(id_alunos));
-    formData.append("url_pdf", url_pdf[0]); // url_pdf já é File aqui
+
+    // Detecta o tipo do arquivo e usa o campo adequado
+    const fileType = url_pdf.type;
+
+    if (fileType === "application/pdf") {
+      formData.append("pdfs", url_pdf); // campo esperado pelo multer
+    } else if (["image/jpeg", "image/png"].includes(fileType)) {
+      formData.append("images", url_pdf);
+    } else if (["video/mp4", "video/avi"].includes(fileType)) {
+      formData.append("videos", url_pdf);
+    } else {
+      console.error("Tipo de arquivo não suportado.");
+      return;
+    }
 
     try {
       await toast.promise(

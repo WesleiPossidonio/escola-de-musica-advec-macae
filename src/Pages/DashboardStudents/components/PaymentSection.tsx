@@ -56,7 +56,7 @@ export const PaymentSection = () => {
     const { mes_referencia, url_pdf } = data
     const paiment = {
       mes_referencia,
-      url_pdf,
+      url_pdf: url_pdf[0],
       id_alunos: userDataLogin.id
     };
 
