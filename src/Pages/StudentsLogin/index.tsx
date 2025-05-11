@@ -73,7 +73,7 @@ export const StudentsLogin = () => {
             <div>
               <p className="text-sm">
                 Esqueci senha ? {' '}
-                <span className="font-semibold cursor-pointer hover:text-black transition ease-in duration-200" onClick={() => navigate('confirmar-email')}>
+                <span className="font-semibold cursor-pointer hover:text-black transition ease-in duration-200" onClick={() => navigate('/confirmar-email')}>
                   Clique Aqui!
                 </span>
               </p>

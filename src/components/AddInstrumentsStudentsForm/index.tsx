@@ -48,13 +48,14 @@ export const AddInstrumentsStudentsForm = ({ instrument }: FormCreateStudentsPro
       email,
       id_hours,
       id_prof,
+      experiencia_com_musica
     } = data
 
     if (listStudents) {
       const studeentsData = {
         data_de_nascimento: listStudents.data_de_nascimento,
-        email,
-        experiencia_com_musica: data.experiencia_com_musica === 'simm' ? true : false,
+        email: email.toLowerCase(),
+        experiencia_com_musica: experiencia_com_musica === 'simm' ? true : false,
         id_hours,
         id_prof,
         name: listStudents.name,
